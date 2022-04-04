@@ -8,6 +8,8 @@ import { GlobalStyles } from "./Globals";
 import { theme } from "./theme";
 import Layout from "./Layout";
 
+import { BagProvider } from "./context/BagContext";
+
 import Home from "./pages/Home";
 import Shop from "./pages/Shop";
 import Product from "./pages/Product";
@@ -42,6 +44,8 @@ const App = () => {
 const root = createRoot(document.getElementById("root"));
 root.render(
     <BrowserRouter>
-        <App />
+        <BagProvider>
+            <App />
+        </BagProvider>
     </BrowserRouter>,
 );

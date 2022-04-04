@@ -65,6 +65,7 @@ const Container = styled(motion.section)`
     background-color: ${({ theme }) => theme.color.offWhite};
     display: flex;
     flex-direction: column;
+    margin-top: ${({ theme }) => theme.layout.offsetTop};
 `;
 
 const Content = styled.section`

@@ -1,9 +1,8 @@
 import { useLayoutEffect } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
-import { ImageBlock, ImageBlockItem } from "../components/Image";
+import { ImageBlock, ImageBlockItem } from "../components/ImageBlock";
 import { ProductItem } from "../components/ProductItem";
 
 import image1 from "../assets/display/Hedvig-2021_12-1.jpg";
@@ -19,20 +18,10 @@ import image10 from "../assets/display/Hedvig-2021_3-1.jpg";
 import { pageTransition } from "../FramerMotion";
 
 const Shop = () => {
-    useLayoutEffect(() => {
-        document.querySelectorAll(".productGrid").forEach((element) => {
-            if (element.previousSibling === null) {
-                element.style.marginTop = "0";
-            }
-        });
-    }, []);
-
     return (
         <Container className="page-shop" initial="enter" animate="animate" exit="exit" variants={pageTransition}>
             <ProductGrid className="productGrid">
-                <Link to={`/product/1`}>
-                    <ProductItem img={image1} colors={["#000000"]} sizes={{ 36: 0, 38: 29, 40: 0 }} preorder="true" material="100 % Silk" title="Daiquiri" description="Silk chiffon black" price="890" />
-                </Link>
+                <ProductItem img={image1} colors={["#000000"]} sizes={{ 36: 0, 38: 29, 40: 0 }} preorder="true" material="100 % Silk" title="Daiquiri" description="Silk chiffon black" price="890" url={`/product/1`} />
                 <ProductItem img={image2} colors={["#B6D4DE", "#750E4C"]} preorder="false" sizes={{ 36: 0, 38: 0, 40: 0 }} title="Hedvig Knit" material="100 % Merino Wool" description="Merino wool sweater aniline" price="390" />
                 <ProductItem img={image7} colors={["#B6D4DE", "#750E4C"]} sizes={{ 36: 1, 38: 29, 40: 4 }} title="Hedvig Knit" material="100 % Merino Wool" description="Merino wool sweater aniline" price="390" />
             </ProductGrid>

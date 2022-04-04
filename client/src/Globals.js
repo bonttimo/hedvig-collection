@@ -89,19 +89,16 @@ export const GlobalStyles = createGlobalStyle`
 		&privacy-policy{
 			p{ font-size: var(--text-large); }
 		}
+		&product{
+			.product-status{
+				p, a{ font-size: var(--text-details); font-family: "SctoGroteskARegular"; } 
+			}
+		}
 	}
 
 	.component-{
 		&product{
 			p, a{ font-size: var(--text-details); font-family: "SctoGroteskARegular"; } 
-		}
-	}
-
-	
-	.button-{
-		&default a{
-			text-transform: uppercase;
-			font-size: 0.7rem;
 		}
 	}
 

@@ -8,4 +8,12 @@ const Logo = () => {
     );
 };
 
-export default Logo;
+const Close = () => {
+    return (
+        <svg viewBox="0 0 55 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path stroke="#F2F2F2" d="m1.354.646 52.999 53M53.646.646l-53 53" />
+        </svg>
+    );
+};
+
+export { Logo, Close };

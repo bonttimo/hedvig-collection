@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 import video from "../assets/display/hedvig.mp4";
 import Button from "../components/Button";
-import { ImageBlock, ImageBlockItem } from "../components/Image";
+import { ImageBlock, ImageBlockItem } from "../components/ImageBlock";
 
 import image1 from "../assets/display/4A6A0151-2-1.jpg";
 import image2 from "../assets/display/Hedvig-2021_12-1.jpg";

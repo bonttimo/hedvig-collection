@@ -4,7 +4,7 @@ export const theme = {
         white: "#ffffff",
         offWhite: "#F2F2F0",
         gray: "#5C5C5C",
-        lightGray: "#E5E5E5",
+        lightGray: "#BDBDBD",
         nude: "#ddd6c9",
         darkPurple: "#492C3D",
         green: "#ADA942",
@@ -18,6 +18,7 @@ export const theme = {
     layout: {
         maxWidth: "2000px",
         gutter: "6rem",
+        offsetTop: "6rem",
         borderRadius: "4px",
     },
 };

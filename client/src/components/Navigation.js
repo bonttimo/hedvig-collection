@@ -1,12 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { motion, useViewportScroll } from "framer-motion";
 
+import { BagContext } from "../context/BagContext";
+
 import { navigationSlide, logoFade } from "../FramerMotion";
-import Logo from "../assets/display/Logo";
+import { Logo } from "../assets/display/Svg";
 
 const Navigation = () => {
+    const { showBag, bagIsOpen } = useContext(BagContext);
+
     const { scrollY } = useViewportScroll();
     const [navHidden, setNavHidden] = useState(false);
 
@@ -19,16 +23,17 @@ const Navigation = () => {
     };
 
     const bag = () => {
-        console.log("bag");
+        showBag();
+        document.body.classList.toggle("bag-open");
     };
 
     useEffect(() => {
         scrollY.onChange(() => scrollDirection());
-    }, []);
+    }, [bagIsOpen]);
 
     return (
         <>
-            <Container initial="visible" animate={navHidden ? "hidden" : "visible"} variants={navigationSlide}>
+            <Container className="mainMenu" initial="visible" animate={navHidden ? "hidden" : "visible"} variants={navigationSlide}>
                 <Content>
                     <div className="left">
                         <NavLink className={({ isActive }) => (isActive ? "active" : "")} to="/">
