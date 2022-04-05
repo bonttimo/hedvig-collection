@@ -94,6 +94,11 @@ const Header = styled.header`
     height: 100%;
     min-height: 100vh;
     position: relative;
+
+    @media only screen and (max-width: 784px) {
+        min-height: 50vh;
+        max-height: 50vh;
+    }
 `;
 
 const Video = styled.video`
@@ -102,7 +107,7 @@ const Video = styled.video`
     height: 100%;
     object-fit: cover;
     position: relative;
-    min-height: 100vh;
+    min-height: inherit;
 `;
 
 const Iframe = styled.section`
@@ -137,6 +142,12 @@ const Intro = styled.section`
         p {
             margin-bottom: 1.5rem;
             line-height: 150%;
+        }
+    }
+
+    @media only screen and (max-width: 784px) {
+        .content {
+            max-width: 100%;
         }
     }
 `;

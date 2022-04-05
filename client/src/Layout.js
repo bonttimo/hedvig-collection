@@ -1,4 +1,4 @@
-import { useLayoutEffect } from "react";
+import { useLayoutEffect, useState } from "react";
 import styled from "styled-components";
 import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -8,19 +8,21 @@ import { pageTransition } from "./FramerMotion";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
 import Bag from "./components/Bag";
+import Coockes from "./components/Coockes";
 
 const Layout = ({ children }) => {
     const location = useLocation();
     const pages = ["/", "product"];
-    let offset = 80;
+    const [offset, setOffset] = useState(null);
 
     const onAnimationComplete = () => {
         console.log("Animation complete");
     };
 
     useLayoutEffect(() => {
-        const navHeight = document.querySelector(".mainMenu").getBoundingClientRect().height;
-        offset = navHeight;
+        if (location.hash === "") window.scrollTo(0, 0);
+
+        setOffset(document.querySelector(".mainMenu").getBoundingClientRect().height);
     }, [location.pathname]);
 
     return (
@@ -31,6 +33,7 @@ const Layout = ({ children }) => {
                 <div className="page">{children}</div>
             </Main>
             <Footer />
+            <Coockes />
         </Page>
     );
 };

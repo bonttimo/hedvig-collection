@@ -51,15 +51,25 @@ const Container = styled(motion.section)`
     position: relative;
     min-height: 100vh;
     width: 100%;
+
+    .component-imageBlock:nth-last-of-type(1) {
+        margin-bottom: 5rem;
+    }
 `;
 
 const ProductGrid = styled.section`
-    max-width: ${({ theme }) => theme.layout.maxWidth};
-    padding: 0 ${({ theme }) => theme.layout.gutter};
+    max-width: var(--maxWidth);
+    padding: 0 var(--gutter);
     position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-auto-rows: auto;
     gap: 1rem;
     margin: 6rem auto;
+
+    @media only screen and (max-width: 784px) {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        margin: 3rem auto;
+    }
 `;

@@ -11,11 +11,13 @@ export const GlobalStyles = createGlobalStyle`
 	textarea{ white-space: revert; }
 	*{ position: relative; }
 	input, textarea, button{ background-color: transparent; }
-	a, p, h1, h2, h3, h4, h5, h6, ul, li, textarea, input, select, button, body { all: unset; display: revert; }
-	a{ cursor: pointer; }
+	ul, li, textarea, input, select, button, body { outline: none; border: none; }
+	body, h1, h2, h3, h4, h5, h6, p, ol, ul { margin: 0; padding: 0; font-weight: normal; }
+	ol, ul { list-style: none; }
+	a, button{ cursor: pointer; text-decoration: none; }
 
-	::-moz-selection { background: ${({ theme }) => theme.color.gray}; color: ${({ theme }) => theme.color.lightGray}; }
-	::selection { background: ${({ theme }) => theme.color.gray}; color: ${({ theme }) => theme.color.lightGray}; }
+	::-moz-selection { background: ${({ theme }) => theme.color.darkGray}; color: ${({ theme }) => theme.color.lightGray}; }
+	::selection { background: ${({ theme }) => theme.color.darkGray}; color: ${({ theme }) => theme.color.lightGray}; }
 
 	@font-face {
         font-family: SctoGroteskARegular;
@@ -45,9 +47,14 @@ export const GlobalStyles = createGlobalStyle`
 		--text-large: 1.3rem;
 		--text-small: 0.8rem;
 		--text-details: 0.7rem;
+
+		--maxWidth: 2400px;
+		--gutter: 6rem;
+		--offsetTop: 6rem;
+		--borderRadius: 4px;
 	}
 
-	body{ font-family: "NoeStandardLight"; color: ${({ theme }) => theme.color.gray}; }
+	body{ font-family: "NoeStandardLight"; color: ${({ theme }) => theme.color.darkGray}; }
 	.scto{ font-family: SctoGroteskARegular; }
 	.noeStandard{ font-family: "NoeStandardLight"; }
 
@@ -59,8 +66,8 @@ export const GlobalStyles = createGlobalStyle`
     h5, .h5 { font-size: var(--h5); }
     h6, .h6 { font-size: var(--h6); }
 	p{ font-size: var(--p); line-height: 145%; }
-	a{ font-size: var(--a); font-family: "SctoGroteskARegular"; }
-    strong { font-weight: bolder; font-family: "SctoGroteskARegular" }
+	a{ font-size: var(--a); font-family: "SctoGroteskARegular"; color: ${({ theme }) => theme.color.darkGray}; }
+    strong { font-weight: bolder; font-family: "SctoGroteskARegular"; }
     em { font-style: italic; }
 
 	.text-{
@@ -82,7 +89,7 @@ export const GlobalStyles = createGlobalStyle`
 	}
 
 	footer{
-		a{ font-size: var(--text-details); }
+		a{ font-size: var(--text-details); color: ${({ theme }) => theme.color.offWhite};  }
 	}
 
 	.page-{
@@ -94,11 +101,19 @@ export const GlobalStyles = createGlobalStyle`
 				p, a{ font-size: var(--text-details); font-family: "SctoGroteskARegular"; } 
 			}
 		}
+		&cart{
+			p, a, span{ font-family: "SctoGroteskARegular"; }
+		}
 	}
 
 	.component-{
 		&product{
 			p, a{ font-size: var(--text-details); font-family: "SctoGroteskARegular"; } 
+		}
+		&bag{
+			.products{
+				p, a, span{ font-size: var(--text-details); font-family: "SctoGroteskARegular"; }
+			}
 		}
 	}
 
@@ -106,5 +121,22 @@ export const GlobalStyles = createGlobalStyle`
 		width: 100%;
 		max-width: 100%;
 		height: auto;
+	}
+	button, a{
+		cursor: pointer;
+	}
+
+	@media only screen and (max-width: 824px) {
+		:root {
+			--gutter: 2rem;
+			--offsetTop: 2rem;
+			--p: 0.85rem;
+			--a: 0.85rem;
+			--h5: 0.85rem;
+		}
+	}
+
+	@media only screen and (max-width: 784px) {
+		
 	}
 `;

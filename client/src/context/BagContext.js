@@ -14,8 +14,12 @@ const bagReducer = (state, action) => {
 export function BagProvider({ children }) {
     const [state, dispatch] = useReducer(bagReducer, { bagIsOpen: false });
 
-    const showBag = () => {
-        dispatch({ type: "OPENBAG", payload: !state.bagIsOpen });
+    const showBag = (show = null) => {
+        if (show !== null) {
+            dispatch({ type: "OPENBAG", payload: show });
+        } else {
+            dispatch({ type: "OPENBAG", payload: !state.bagIsOpen });
+        }
     };
 
     return <BagContext.Provider value={{ ...state, showBag }}>{children}</BagContext.Provider>;

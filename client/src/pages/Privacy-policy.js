@@ -33,8 +33,7 @@ const PrivacyPolicy = () => {
     };
 
     useEffect(() => {
-        if (hash === "") window.scrollTo(0, 0);
-        else {
+        if (hash !== "") {
             if (pageLoading === false) {
                 setTimeout(() => {
                     const element = document.getElementById(hash.replace("#", ""));
@@ -90,8 +89,8 @@ const PrivacyPolicy = () => {
                             <h6>personal information we collect</h6>
                             <p>When you visit the Site, we automatically collect certain information about your device, including information about your web browser, IP address, time zone, and some of the cookies that are installed on your device. Additionally, as you browse the Site, we collect information about the individual web pages or products that you view, what websites or search terms referred you to the Site, and information about how you interact with the Site. We refer to this automatically-collected information as “Device Information”.</p>
                             <p>
-                                We collect Device Information using the following technologies: - “Cookies” are data files that are placed on your device or computer and often include an anonymous unique identifier. For more information about cookies, and how to disable cookies, visit http://www.allaboutcookies.org. - “Log files” track actions occurring on the Site, and collect data including your IP address, browser type, Internet service provider, referring/exit pages, and date/time stamps. - “Web beacons”, “tags”, and “pixels” are electronic files used to record information about how you
-                                browse the Site.
+                                We collect Device Information using the following technologies: - “Cookies” are data files that are placed on your device or computer and often include an anonymous unique identifier. For more information about cookies, and how to disable cookies, visit <a href="http://www.allaboutcookies.org">allaboutcookies</a>. - “Log files” track actions occurring on the Site, and collect data including your IP address, browser type, Internet service provider, referring/exit pages, and date/time stamps. - “Web beacons”, “tags”, and “pixels” are electronic files used to
+                                record information about how you browse the Site.
                             </p>
                             <p>Additionally when you make a purchase or attempt to make a purchase through the Site, we collect certain information from you, including your name, billing address, shipping address, payment information (including credit card numbers, email address, and phone number. We refer to this information as “Order Information”.</p>
                             <p>When we talk about “Personal Information” in this Privacy Policy, we are talking both about Device Information and Order Information.</p>
@@ -106,22 +105,33 @@ const PrivacyPolicy = () => {
                             <p>We use the Device Information that we collect to help us screen for potential risk and fraud (in particular, your IP address), and more generally to improve and optimize our Site (for example, by generating analytics about how our customers browse and interact with the Site, and to assess the success of our marketing and advertising campaigns).</p>
                             <h6>Sharing your personal information</h6>
                             <p>
-                                We share your Personal Information with third parties to help us use your Personal Information, as described above. For example, we use Shopify to power our online store--you can read more about how Shopify uses your Personal Information here: https://www.shopify.com/legal/privacy. We also use Google Analytics to help us understand how our customers use the Site -- you can read more about how Google uses your Personal Information here: https://www.google.com/intl/en/policies/privacy/. You can also opt-out of Google Analytics here:
-                                https://tools.google.com/dlpage/gaoptout.
+                                We share your Personal Information with third parties to help us use your Personal Information, as described above. For example, we use Shopify to power our online store--you can read more about how Shopify uses your Personal Information here: <a href="https://www.shopify.com/legal/privacy">Shopify</a>. We also use Google Analytics to help us understand how our customers use the Site -- you can read more about how Google uses your Personal Information here: <a href="https://www.google.com/intl/en/policies/privacy/">Google privacy</a>. You can also opt-out of
+                                Google Analytics here:
+                                <a href="https://tools.google.com/dlpage/gaoptout">Tools google</a>.
                             </p>
 
                             <p>Finally, we may also share your Personal Information to comply with applicable laws and regulations, to respond to a subpoena, search warrant or other lawful request for information we receive, or to otherwise protect our rights.</p>
 
                             <h6>Behavioural advertising</h6>
-                            <p>As described above, we use your Personal Information to provide you with targeted advertisements or marketing communications we believe may be of interest to you. For more information about how targeted advertising works, you can visit the Network Advertising Initiative’s (“NAI”) educational page at http://www.networkadvertising.org/understanding-online-advertising/how-does-it-work.</p>
+                            <p>
+                                As described above, we use your Personal Information to provide you with targeted advertisements or marketing communications we believe may be of interest to you. For more information about how targeted advertising works, you can visit the Network Advertising Initiative’s (“NAI”) educational page at <a href="http://www.networkadvertising.org/understanding-online-advertising/how-does-it-work.">Network advertising</a>
+                            </p>
 
                             <p>You can opt out of targeted advertising by using the links below: </p>
                             <ul>
-                                <li>Facebook: https://www.facebook.com/settings/?tab=ads </li>
-                                <li>Google: https://www.google.com/settings/ads/anonymous </li>
-                                <li>Bing: https://advertise.bingads.microsoft.com/en-us/resources/policies/personalized-ads</li>
+                                <li>
+                                    Facebook: <a href="https://www.facebook.com/settings/?tab=ads">Facebook settings</a>{" "}
+                                </li>
+                                <li>
+                                    Google: <a href="https://www.google.com/settings/ads/anonymous">Google settings</a>{" "}
+                                </li>
+                                <li>
+                                    Bing: <a href="https://advertise.bingads.microsoft.com/en-us/resources/policies/personalized-ads"> Microsoft advertise</a>
+                                </li>
                             </ul>
-                            <p>Additionally, you can opt out of some of these services by visiting the Digital Advertising Alliance’s opt-out portal at: http://optout.aboutads.info/.</p>
+                            <p>
+                                Additionally, you can opt out of some of these services by visiting the Digital Advertising Alliance’s opt-out portal at: <a href="http://optout.aboutads.info/">Optout aboutads</a>.
+                            </p>
                             <h6>Do not track</h6>
                             <p>Please note that we do not alter our Site’s data collection and use practices when we see a Do Not Track signal from your browser.</p>
                             <h6>Your rights</h6>
@@ -273,12 +283,18 @@ const Container = styled(motion.section)`
 `;
 
 const Content = styled.section`
-    max-width: ${({ theme }) => theme.layout.maxWidth};
-    padding: 0 ${({ theme }) => theme.layout.gutter};
+    max-width: var(--maxWidth);
+    padding: 0 var(--gutter);
     display: grid;
     grid-template-columns: 1fr 2fr;
     margin-left: auto;
     margin-right: auto;
+    top: 100px;
+
+    @media only screen and (max-width: 784px) {
+        grid-template-columns: 1fr;
+        top: 50px;
+    }
 `;
 
 const Aside = styled.aside`
@@ -288,17 +304,36 @@ const Aside = styled.aside`
     flex-direction: column;
     align-content: flex-start;
     align-items: flex-start;
-    gap: 1rem;
     position: sticky;
-    top: 200px;
+    width: 100%;
+
+    * {
+        margin-bottom: 1rem;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
     h6 {
         margin-bottom: 1.5rem;
+    }
+    button {
+        width: 100%;
+    }
+
+    @media only screen and (max-width: 784px) {
+        margin: 3rem 0 6rem 0;
+        position: relative;
+        top: 0;
+
+        * {
+            margin-bottom: 2rem;
+        }
     }
 `;
 
 const Main = styled.main`
     max-width: 750px;
-    justify-self: end;
+    justify-self: start;
     h6 {
         margin-bottom: 0.6rem;
     }
@@ -319,6 +354,9 @@ const Main = styled.main`
             border: none;
         }
     }
+    a {
+        text-decoration: underline;
+    }
     p,
     em {
         position: relative;
@@ -333,5 +371,9 @@ const Main = styled.main`
         li {
             margin-bottom: 0.5rem;
         }
+    }
+
+    @media only screen and (max-width: 784px) {
+        max-width: 100%;
     }
 `;

@@ -11,7 +11,7 @@ const About = () => {
         <Container className="page-about" initial="enter" animate="animate" exit="exit" variants={pageTransition}>
             <Content>
                 <Aside>
-                    <div className="links">
+                    <Links className="desktop">
                         <h6>Contact</h6>
                         <Link className="h3 noeStandard" to="mailto:info@hedvigcollection.com">
                             info@hedvigcollection.com
@@ -19,7 +19,7 @@ const About = () => {
                         <Link className="h3 noeStandard" to="https://www.instagram.com/">
                             Instagram
                         </Link>
-                    </div>
+                    </Links>
 
                     <div className="owners">
                         <div className="item">
@@ -35,6 +35,15 @@ const About = () => {
                     </div>
                 </Aside>
                 <Main>
+                    <Links className="mobile">
+                        <h6>Contact</h6>
+                        <Link className="h3 noeStandard" to="mailto:info@hedvigcollection.com">
+                            info@hedvigcollection.com
+                        </Link>
+                        <Link className="h3 noeStandard" to="https://www.instagram.com/">
+                            Instagram
+                        </Link>
+                    </Links>
                     <div className="intro">
                         <h6>Fragments of Short Stories</h6>
                         <p>
@@ -65,34 +74,67 @@ const Container = styled(motion.section)`
     background-color: ${({ theme }) => theme.color.offWhite};
     display: flex;
     flex-direction: column;
-    margin-top: ${({ theme }) => theme.layout.offsetTop};
+    margin-top: var(--offsetTop);
 `;
 
 const Content = styled.section`
-    max-width: ${({ theme }) => theme.layout.maxWidth};
-    padding: 0 ${({ theme }) => theme.layout.gutter};
+    max-width: var(--maxWidth);
+    padding: 0 var(--gutter);
     display: grid;
     grid-template-columns: 1fr 2fr;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 4rem;
+
+    @media only screen and (max-width: 784px) {
+        grid-template-columns: 1fr;
+    }
 `;
 
 const Aside = styled.aside`
     display: flex;
     flex-direction: column;
-    .links {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-    }
+
     .owners {
-        margin-top: 6rem;
-        display: flex;
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-auto-rows: auto;
         gap: 4rem;
+
+        margin-top: 6rem;
         img {
             margin-bottom: 0.6rem;
             max-width: 200px;
+        }
+    }
+
+    @media only screen and (max-width: 784px) {
+        order: 2;
+        .owners {
+            margin-top: 3rem;
+            img {
+                max-width: 100%;
+            }
+        }
+    }
+`;
+
+const Links = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    &.mobile {
+        display: none;
+    }
+    @media only screen and (max-width: 784px) {
+        grid-template-columns: 1fr;
+        &.mobile {
+            display: flex;
+            margin-bottom: 6rem;
+        }
+        &.desktop {
+            display: none;
         }
     }
 `;
@@ -115,5 +157,12 @@ const Main = styled.main`
         position: relative;
         display: block;
         margin-bottom: 3rem;
+    }
+
+    @media only screen and (max-width: 784px) {
+        grid-template-columns: 1fr;
+        .intro {
+            grid-column: 1;
+        }
     }
 `;

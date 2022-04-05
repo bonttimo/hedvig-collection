@@ -7,7 +7,7 @@ const ImageBlockItem = ({ image = null, title = null, body = null, style = "cent
     return (
         <Item className={`component-imageBlockItem style-${style} ${body ? "has-content" : ""}`} color={color} bg={bg}>
             {image && <img src={image} alt="" />}
-            <div className="content">
+            <div className={`content ${image ? "content-absolute" : ""}`}>
                 {title && <h3>{title}</h3>}
                 {body && <p className="body text-large">{body}</p>}
                 {button && <Button url={url} text={button} color={color} />}
@@ -18,7 +18,7 @@ const ImageBlockItem = ({ image = null, title = null, body = null, style = "cent
 
 const ImageBlock = ({ children, footer = null, bg = "offWhite", color = "offWhite", style = "default", ...props }) => {
     return (
-        <Container className={`component-imageBlock image-${style}`}>
+        <Container className={`component-imageBlock imageBlock-${style}`}>
             <Content color={color} columns={Children.count(children)}>
                 {children}
             </Content>
@@ -42,11 +42,18 @@ const Container = styled.section`
 const Content = styled.section`
     display: grid;
     grid-template-columns: repeat(${({ columns }) => (columns < 0 ? 1 : columns)}, 1fr);
-    grid-auto-rows: auto;
+    grid-auto-rows: 1fr;
     align-content: center;
     width: 100%;
     max-height: 90vh;
     overflow: hidden;
+
+    @media only screen and (max-width: 784px) {
+        display: flex;
+        flex-direction: column;
+        max-height: unset;
+        height: auto;
+    }
 `;
 
 const Footer = styled.section`
@@ -103,5 +110,23 @@ const Item = styled.section`
         display: flex;
         flex-direction: column;
         gap: 1rem;
+    }
+
+    @media only screen and (max-width: 784px) {
+        .content {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            padding: 3rem;
+
+            &-absolute {
+                position: absolute;
+            }
+        }
+        &.has-content {
+            .content {
+                max-width: 100%;
+            }
+        }
     }
 `;
