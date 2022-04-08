@@ -1,5 +1,5 @@
-const pageTransitionDuration = 0.7;
-const pageTransition = {
+const pageTransitionDuration = 1.2;
+export const pageTransition = {
     animate: {
         opacity: 1,
         transition: { duration: pageTransitionDuration },
@@ -10,11 +10,11 @@ const pageTransition = {
     },
     exit: {
         opacity: 0,
-        transition: { duration: pageTransitionDuration },
+        transition: { duration: pageTransitionDuration - 0.7 },
     },
 };
 
-const navigationSlide = {
+export const navigationSlide = {
     visible: {
         opacity: 1,
         y: 0,
@@ -27,7 +27,7 @@ const navigationSlide = {
     },
 };
 
-const mobileMenuSlide = {
+export const mobileMenuSlide = {
     visible: {
         opacity: 1,
         y: 0,
@@ -43,15 +43,23 @@ const mobileMenuSlide = {
     },
 };
 
-const logoFade = {
-    visible: { opacity: 1, transition: { duration: 0.4, delay: 0.4, ease: "circIn" } },
-    hidden: { opacity: 0, transition: { duration: 0.4, ease: "circIn" } },
+export const logoFade = {
+    visible: { opacity: 1, transition: { duration: 0.4, delay: 0.2, ease: "circIn" } },
+    hidden: { opacity: 0, transition: { duration: 0.3, ease: "circIn" } },
 };
 
-const coockieFade = {
+export const coockieFade = {
     visible: { opacity: 1, transition: { duration: 0.5, ease: "circIn" } },
     hidden: { opacity: 0, transition: { duration: 0.5, ease: "circIn" } },
     exit: { opacity: 0, transition: { duration: 0.5, ease: "circIn" } },
 };
 
-export { pageTransition, navigationSlide, logoFade, coockieFade, mobileMenuSlide };
+export const FadeIn = {
+    start: { opacity: 0, transition: { duration: 0.4, ease: "circIn" } },
+    end: { opacity: 1, transition: { duration: 0.4, ease: "circIn" } },
+};
+
+export const FadeInStagger = {
+    start: { opacity: 0, transition: { duration: 0.4, ease: "circIn" } },
+    end: { opacity: 1, transition: { duration: 0.4, staggerChildren: 0.4, delayChildren: 0.2, ease: "circIn" } },
+};

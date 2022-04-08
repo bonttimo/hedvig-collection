@@ -1,8 +1,10 @@
 import { useLayoutEffect, useContext, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
 import { BagContext } from "../context/BagContext";
+import { FadeInStagger } from "../FramerMotion";
 
 import { Close } from "../assets/display/Svg";
 import Button from "./Button";
@@ -52,27 +54,27 @@ const Bag = ({ ...props }) => {
                 </header>
 
                 <main>
-                    <Products className="products">
+                    <Products className="products" initial="start" animate="end" variants={FadeInStagger}>
                         {bagItems.map((item) => {
                             return (
-                                <Product key={item.id}>
+                                <Product key={item.id} variants={FadeInStagger}>
                                     <div className="content">
                                         <h3>{item.title}</h3>
-                                        <div className="group">
+                                        <Group className="fold">
                                             <p>{item.content}</p>
                                             <span>/</span>
                                             <p>{item.color}</p>
                                             <span>/</span>
                                             <p>{item.size}</p>
-                                        </div>
-                                        <div className="group">
+                                        </Group>
+                                        <Group>
                                             <p>{item.price}€</p>
                                             <p>{item.qty}x</p>
-                                        </div>
+                                        </Group>
                                         <button className="scto">Remove</button>
                                     </div>
                                     <div className="image">
-                                        <img src={item.image} alt="" />
+                                        <img loading="lazy" src={item.image} alt="" />
                                     </div>
                                 </Product>
                             );
@@ -145,13 +147,6 @@ const Content = styled.section`
         .image {
             margin-left: 1rem;
         }
-        .group {
-            display: flex;
-            margin-bottom: 1rem;
-            * {
-                margin-right: 0.5rem;
-            }
-        }
         footer {
             border-top: solid 1px ${({ theme }) => theme.color.offWhite};
             display: flex;
@@ -177,14 +172,31 @@ const Content = styled.section`
     }
 `;
 
-const Products = styled.section`
+const Group = styled.div`
+    display: flex;
+    margin-bottom: 1rem;
+    align-items: baseline;
+    * {
+        margin-right: 0.5rem;
+    }
+    @media only screen and (max-width: 784px) {
+        &.fold {
+            flex-direction: column;
+            span {
+                display: none;
+            }
+        }
+    }
+`;
+
+const Products = styled(motion.section)`
     display: grid;
     grid-template-columns: 1fr;
     grid-auto-rows: auto;
     gap: 2rem;
 `;
 
-const Product = styled.section`
+const Product = styled(motion.section)`
     .content {
         display: flex;
         flex-direction: column;

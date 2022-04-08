@@ -1,104 +1,115 @@
+import { useState, useLayoutEffect } from "react";
 import styled from "styled-components";
+import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
-import image1 from "../assets/display/Hedvig-2021_12-1.jpg";
+import { pageTransition, FadeIn, FadeInStagger } from "../FramerMotion";
 
-import image7 from "../assets/display/Hedvig-2021_7-1.jpg";
-import image8 from "../assets/display/Hedvig-2021_8-1.jpg";
-import image9 from "../assets/display/Hedvig-2021_14-1.jpg";
-
-import { pageTransition } from "../FramerMotion";
-
+import { getSizes, getColors } from "../functions/product";
 import Button from "../components/Button";
+import { getSingleProduct, getRandomProducts } from "../ShopifyQueries.js";
 
 const Product = () => {
-    const sizes = { 36: 0, 38: 29, 40: 0 };
-    const colors = ["#B6D4DE", "#750E4C"];
+    let { id } = useParams();
+    const [product, setProduct] = useState(null);
+    const [relatedProducts, setRelatedProducts] = useState(null);
+
+    useLayoutEffect(() => {
+        if (product === null) {
+            (async () => {
+                try {
+                    await window.client.graphQLClient.send(getSingleProduct(id)).then(({ model, data }) => {
+                        setProduct(model.products[0]);
+                    });
+                } catch (err) {
+                    setProduct(null);
+                }
+
+                try {
+                    await window.client.graphQLClient.send(getRandomProducts(20, id)).then(({ model, data }) => {
+                        setRelatedProducts(model.products.sort(() => 0.5 - Math.random()).slice(0, 3));
+                    });
+                } catch (e) {
+                    setRelatedProducts(null);
+                }
+            })();
+        }
+    }, [product, relatedProducts]);
 
     const selectSize = (size) => {
         console.log("Select");
     };
     return (
         <Container className="page-product" initial="enter" animate="animate" exit="exit" variants={pageTransition}>
-            <Content>
-                <Gallery>
-                    <img src={image1} alt="" />
-                    <ProductStatus className="product-status">
-                        <Preorder>Pre order</Preorder>
-                        <SoldOut>Sold Out</SoldOut>
-                    </ProductStatus>
-                </Gallery>
-                <ProductDetails>
-                    <Group>
-                        <h2>Daiquiri</h2>
-                        <Row>
-                            <p className="material">Silk chiffon dress black</p>
-                            <span>|</span>
-                            <p className="price">890€</p>
-                        </Row>
-                    </Group>
-                    <Group>
-                        <Sizes>
-                            <p>
-                                Sizes available (EU) <a href="#">Size quide →</a>
-                            </p>
-                            <ul>
-                                {Object.entries(sizes).map(([size, qty], index) => (
-                                    <li key={index} className={qty <= 0 ? "soldOut" : ""}>
-                                        <p onClick={() => (qty > 0 ? selectSize() : "")} data-size={size}>
-                                            {size}
-                                        </p>
-                                    </li>
+            {product !== null && (
+                <>
+                    <Content>
+                        <Gallery initial="start" animate="end" variants={FadeIn}>
+                            <img loading="lazy" src={product.images[0].src} alt="" />
+                            <ProductStatus className="product-status">
+                                <Preorder>Pre order</Preorder>
+                                <SoldOut>Sold Out</SoldOut>
+                            </ProductStatus>
+                        </Gallery>
+                        <ProductDetails>
+                            <Group>
+                                <h2>{product.title}</h2>
+                                <Row>
+                                    <p className="material">{product.metafields[0].value}</p>
+                                    <span>|</span>
+                                    <p className="price">{product.variants[0].price.replace(/\.00$/, "")} €</p>
+                                </Row>
+                            </Group>
+                            <Group>
+                                <Sizes>
+                                    <p>
+                                        Sizes available (EU) <a href="#">Size quide →</a>
+                                    </p>
+                                    <ul>
+                                        {Object.values(getSizes(product.variants)).map(({ value, qty }, index) => (
+                                            <li key={index} className={qty <= 0 ? "soldOut" : ""}>
+                                                <p onClick={() => (qty > 0 ? selectSize() : "")} data-size={value}>
+                                                    {value}
+                                                </p>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </Sizes>
+                            </Group>
+                            <Group>
+                                <Colors>
+                                    <p>Colours available</p>
+                                    <Row>
+                                        {Object.values(getColors(product.variants)).map(({ value, qty }, index) => (
+                                            <div key={index} style={{ backgroundColor: value }}></div>
+                                        ))}
+                                    </Row>
+                                </Colors>
+                            </Group>
+                            <Group>
+                                <Button url="#" text="Add to bag →" color="white" bg="lightBlue" style="fill" />
+                                <Button url="#" text="Preorder" color="gray" bg="gray" style="outline" />
+                            </Group>
+                            <Group className="productInfo" dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}></Group>
+                        </ProductDetails>
+                    </Content>
+                    <RelatedProducts initial="start" animate="end" variants={FadeInStagger}>
+                        <h2 className="scto">Related products</h2>
+                        {relatedProducts !== null ? (
+                            <div className="products">
+                                {relatedProducts.map((product, index) => (
+                                    <Link className="product" to={`/product/${product.handle}`} key={index}>
+                                        <motion.img loading="lazy" src={product.images[0].src} alt="" variants={FadeInStagger} />
+                                        <p>{product.title}</p>
+                                    </Link>
                                 ))}
-                            </ul>
-                        </Sizes>
-                    </Group>
-                    <Group>
-                        <Colors>
-                            <p>Colours available</p>
-                            <Row>
-                                {colors.map((color, index) => (
-                                    <div key={index} style={{ backgroundColor: color }}></div>
-                                ))}
-                            </Row>
-                        </Colors>
-                    </Group>
-                    <Group>
-                        <Button url="#" text="Add to bag →" color="white" bg="lightBlue" style="fill" />
-                        <Button url="#" text="Preorder" color="gray" bg="gray" style="outline" />
-                    </Group>
-                    <Group>
-                        <h6>Description</h6>
-                        <p>Hedvig’s DAIQUIRI dress is made of Italian silk and silk chiffon and produced in Lithuania. The dress has a top part that closes at back with hooks and turtleneck to be tied behind the neck, it features both silk and silk chiffon ruffles along the sleeves and the necktie, with raw edges on the ruffles. The front part of the dress is divided in two parts with a cut-out flattering the midriff area. The hem of the dress closes like a wrapped skirt creating a beautiful movement to the hem and occasionally showing a little leg.</p>
-                    </Group>
-                    <Group>
-                        <h6>Details</h6>
-                        <ul>
-                            <li>The model is 176cm tall and wearing size 38</li>
-                            <li>Black</li>
-                            <li>100% silk (back of top part and sleeves 100% silk chiffon)</li>
-                            <li>Dry clean only</li>
-                        </ul>
-                    </Group>
-                </ProductDetails>
-            </Content>
-            <RelatedProducts>
-                <h2 className="scto">Related products</h2>
-                <div className="products">
-                    <div className="product">
-                        <img src={image7} alt="" />
-                        <p>Macaron dress</p>
-                    </div>
-                    <div className="product">
-                        <img src={image8} alt="" />
-                        <p>Macaron dress</p>
-                    </div>
-                    <div className="product">
-                        <img src={image9} alt="" />
-                        <p>Sui Lieviti dress</p>
-                    </div>
-                </div>
-            </RelatedProducts>
+                            </div>
+                        ) : (
+                            <p>Loading related products</p>
+                        )}
+                    </RelatedProducts>
+                </>
+            )}
         </Container>
     );
 };
@@ -135,7 +146,7 @@ const Content = styled.section`
     }
 `;
 
-const Gallery = styled.section`
+const Gallery = styled(motion.section)`
     img {
         object-fit: cover;
         height: 100%;
@@ -145,11 +156,20 @@ const Gallery = styled.section`
 const ProductDetails = styled.section`
     display: grid;
     grid-template-columns: 1fr;
-    grid-auto-rows: auto;
+    grid-auto-rows: min-content;
+    align-items: start;
     gap: 2rem;
     margin-top: 100px;
     padding: 0 var(--gutter);
 
+    .productInfo {
+        ul {
+            list-style: disc;
+            li {
+                margin-bottom: 1rem;
+            }
+        }
+    }
     @media only screen and (max-width: 784px) {
         margin-top: 0;
     }
@@ -198,7 +218,6 @@ const Preorder = styled.p`
 `;
 
 const Sizes = styled.section`
-    list-style: none;
     display: grid;
     grid-template-columns: 1fr;
     grid-auto-rows: auto;
@@ -209,6 +228,7 @@ const Sizes = styled.section`
     }
     ul {
         display: flex;
+        list-style: none;
     }
     li {
         margin-left: 0.5rem;
@@ -229,12 +249,11 @@ const Colors = styled.section`
     & > section div {
         width: 15px;
         height: 15px;
-        background-color: ${({ theme }) => theme.color.darkGreen};
         border-radius: 100px;
     }
 `;
 
-const RelatedProducts = styled.section`
+const RelatedProducts = styled(motion.section)`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -253,6 +272,7 @@ const RelatedProducts = styled.section`
 
         img {
             max-width: 400px;
+            height: 100%;
         }
         .product {
             display: flex;

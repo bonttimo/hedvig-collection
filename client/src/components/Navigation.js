@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext, useLayoutEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import styled from "styled-components";
-import { motion, useViewportScroll, AnimatePresence } from "framer-motion";
+import { motion, useViewportScroll } from "framer-motion";
 
 import { BagContext } from "../context/BagContext";
 

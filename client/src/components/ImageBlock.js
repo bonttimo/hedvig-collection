@@ -1,12 +1,14 @@
 import { Children } from "react";
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
+import { FadeIn } from "../FramerMotion";
 import Button from "./Button";
 
 const ImageBlockItem = ({ image = null, title = null, body = null, style = "center", button = null, url = null, color = "offWhite", bg = "darkPurple", ...props }) => {
     return (
-        <Item className={`component-imageBlockItem style-${style} ${body ? "has-content" : ""}`} color={color} bg={bg}>
-            {image && <img src={image} alt="" />}
+        <Item className={`component-imageBlockItem style-${style} ${body ? "has-content" : ""}`} color={color} bg={bg} initial="start" animate="end" variants={FadeIn}>
+            {image && <img loading="lazy" src={image} alt="" />}
             <div className={`content ${image ? "content-absolute" : ""}`}>
                 {title && <h3>{title}</h3>}
                 {body && <p className="body text-large">{body}</p>}
@@ -18,7 +20,7 @@ const ImageBlockItem = ({ image = null, title = null, body = null, style = "cent
 
 const ImageBlock = ({ children, footer = null, bg = "offWhite", color = "offWhite", style = "default", ...props }) => {
     return (
-        <Container className={`component-imageBlock imageBlock-${style}`}>
+        <Container className={`component-imageBlock imageBlock-${style}`} initial="start" animate="end" variants={FadeIn}>
             <Content color={color} columns={Children.count(children)}>
                 {children}
             </Content>
@@ -33,7 +35,7 @@ const ImageBlock = ({ children, footer = null, bg = "offWhite", color = "offWhit
 
 export { ImageBlock, ImageBlockItem };
 
-const Container = styled.section`
+const Container = styled(motion.section)`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -64,7 +66,7 @@ const Footer = styled.section`
     padding: 2rem;
 `;
 
-const Item = styled.section`
+const Item = styled(motion.section)`
     position: relative;
     display: flex;
     justify-content: center;

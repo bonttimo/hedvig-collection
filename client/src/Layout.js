@@ -16,12 +16,11 @@ const Layout = ({ children }) => {
     const [offset, setOffset] = useState(null);
 
     const onAnimationComplete = () => {
+        if (location.hash === "") window.scrollTo(0, 0);
         console.log("Animation complete");
     };
 
     useLayoutEffect(() => {
-        if (location.hash === "") window.scrollTo(0, 0);
-
         setOffset(document.querySelector(".mainMenu").getBoundingClientRect().height);
     }, [location.pathname]);
 
@@ -46,6 +45,11 @@ const Main = styled.main`
     transition: all ease 500ms;
     /* padding-top: ${({ currentPage, pages, offset }) => (pages.filter((page) => new RegExp(`^/+${page}.[0-9]*|\/$`).test(currentPage)).length <= 0 ? `${offset}px` : "0")}; */
     padding-top: ${({ currentPage, pages, offset }) => `${offset}px`};
+    .page {
+        height: auto;
+        display: flex;
+        flex-direction: column;
+    }
 `;
 
 export default Layout;

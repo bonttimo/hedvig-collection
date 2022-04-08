@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import image2 from "../assets/display/Hedvig-2021_12-1.jpg";
 import image9 from "../assets/display/Hedvig-2021_14-1.jpg";
 
+import { FadeInStagger } from "../FramerMotion";
 import Button from "../components/Button";
 
 import { pageTransition } from "../FramerMotion";
@@ -35,13 +36,13 @@ const Cart = () => {
     return (
         <Container className="page-cart" initial="enter" animate="animate" exit="exit" variants={pageTransition}>
             <Content>
-                <Products className="products">
+                <Products className="products" initial="start" animate="end" variants={FadeInStagger}>
                     {bagItems.map((item) => {
                         return (
-                            <Product key={item.id}>
+                            <Product key={item.id} variants={FadeInStagger}>
                                 <div className="content">
                                     <h3>{item.title}</h3>
-                                    <Group>
+                                    <Group className="fold">
                                         <p>{item.content}</p>
                                         <span>/</span>
                                         <p>{item.color}</p>
@@ -55,7 +56,7 @@ const Cart = () => {
                                     <button className="scto">Remove</button>
                                 </div>
                                 <div className="image">
-                                    <img src={item.image} alt="" />
+                                    <img loading="lazy" src={item.image} alt="" />
                                 </div>
                             </Product>
                         );
@@ -106,18 +107,27 @@ const Content = styled(motion.section)`
     max-width: 800px;
     margin: auto auto;
     margin-top: 6rem;
-    margin-bottom: 3rem;
+    margin-bottom: 6rem;
 `;
 
 const Group = styled.div`
     display: flex;
+    align-items: baseline;
     margin-bottom: 1rem;
     * {
         margin-right: 0.5rem;
     }
+    @media only screen and (max-width: 784px) {
+        &.fold {
+            flex-direction: column;
+            span {
+                display: none;
+            }
+        }
+    }
 `;
 
-const Products = styled.section`
+const Products = styled(motion.section)`
     display: grid;
     grid-template-columns: 1fr;
     grid-auto-rows: auto;
@@ -127,7 +137,7 @@ const Products = styled.section`
     padding-bottom: 3rem;
 `;
 
-const Product = styled.section`
+const Product = styled(motion.section)`
     display: grid;
     grid-template-columns: 1.5fr auto;
     align-items: stretch;

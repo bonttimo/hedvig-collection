@@ -1,13 +1,18 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
-import Button from "./Button";
+import { FadeIn } from "../FramerMotion";
+import { getSizes, getColors } from "../functions/product";
 
 const ConditionalWrapper = ({ condition, wrapper, children }) => (condition ? wrapper(children) : children);
 
 const ProductItem = ({ style = "default", colors = [], sizes = {}, preorder = false, img = null, title = null, material = "", description = null, price = null, url = "", ...props }) => {
+    const _sizes = getSizes(sizes);
+    const _colors = getColors(colors);
+    console.log(_colors);
     return (
-        <Container className={`component-product product-${style}`}>
+        <Container className={`component-product product-${style}`} initial="start" animate="end" variants={FadeIn}>
             <ConditionalWrapper
                 condition={url}
                 wrapper={(children) => (
@@ -17,7 +22,7 @@ const ProductItem = ({ style = "default", colors = [], sizes = {}, preorder = fa
                 )}>
                 <Content>
                     <Image>
-                        <img src={img} alt="" />
+                        <img loading="lazy" src={img} alt="" />
                         <ProductData>
                             <header>
                                 {preorder === true || (preorder === "true" && <p className="preOrder">Preorder</p>)}
@@ -26,17 +31,17 @@ const ProductItem = ({ style = "default", colors = [], sizes = {}, preorder = fa
                             <footer>
                                 <div className="sizes">
                                     <p>Sizes (EU):</p>
-                                    {Object.entries(sizes).map(([size, qty], index) => (
+                                    {Object.values(_sizes).map(({ value, qty }, index) => (
                                         <p key={index} className={qty <= 0 ? "soldOut" : ""}>
-                                            {size}
+                                            {value}
                                         </p>
                                     ))}
                                 </div>
 
                                 <div className="colors">
                                     <p>Colours</p>
-                                    {colors.map((color, index) => (
-                                        <div key={index} style={{ backgroundColor: color }}></div>
+                                    {Object.values(_colors).map(({ value, qty }, index) => (
+                                        <div key={index} style={{ backgroundColor: value }}></div>
                                     ))}
                                 </div>
                                 {material !== "" && <p className="material">Material: {material}</p>}
@@ -59,9 +64,10 @@ const ProductItem = ({ style = "default", colors = [], sizes = {}, preorder = fa
 
 export { ProductItem };
 
-const Container = styled.section`
+const Container = styled(motion.section)`
     display: flex;
     flex-direction: column;
+    height: 100%;
 
     .permalink {
         display: flex;
@@ -159,13 +165,21 @@ const ProductData = styled.section`
             }
         }
     }
+    @media only screen and (max-width: 784px) {
+        footer {
+            .sizes,
+            .colors {
+                display: flex;
+            }
+        }
+    }
 `;
 
 const Body = styled.section`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: baseline;
     margin-top: 2rem;
 
     .title {
