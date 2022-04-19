@@ -63,3 +63,9 @@ export const FadeInStagger = {
     start: { opacity: 0, transition: { duration: 0.4, ease: "circIn" } },
     end: { opacity: 1, transition: { duration: 0.4, staggerChildren: 0.4, delayChildren: 0.2, ease: "circIn" } },
 };
+
+export const fadeInOut = {
+    visible: { opacity: 1, transition: { duration: 0.5, ease: "circIn" } },
+    hidden: { opacity: 0, transition: { duration: 0.5, ease: "circIn" } },
+    exit: { opacity: 0, transition: { duration: 0.5, ease: "circIn" } },
+};

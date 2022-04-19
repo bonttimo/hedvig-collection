@@ -106,13 +106,6 @@ const ProductGrid = styled.section`
 //     setProducts(products);
 // });
 
-// let state = {
-//     products: [],
-//     product: {},
-//     checkout: {},
-//     isCartOpen: false,
-// };
-
 // <ProductGrid className="productGrid">
 //  <ProductItem img={image9} colors={["#000000"]} sizes={{ 36: 0 }} material="100 % Silk" title="Daiquiri" description="Silk chiffon black" price="890" />
 //  <ProductItem img={image8} colors={["#B6D4DE", "#750E4C"]} sizes={{ 37: 1, 38: 29, 40: 4, 41: 0 }} preorder="false" title="Hedvig Knit" material="100 % Merino Wool" description="Merino wool sweater aniline" price="390" />

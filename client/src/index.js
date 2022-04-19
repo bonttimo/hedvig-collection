@@ -19,13 +19,6 @@ import PrivacyPolicy from "./pages/Privacy-policy";
 
 import SizeChart from "./components/SizeChart";
 
-import Client from "shopify-buy/index.unoptimized.umd";
-// import Client from "shopify-buy";
-window.client = Client.buildClient({
-    domain: "hedvig-collection.myshopify.com",
-    storefrontAccessToken: "dded2477ad5ce206ae4e3175641fabc1",
-});
-
 const App = () => {
     const location = useLocation();
 

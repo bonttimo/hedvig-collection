@@ -8,7 +8,9 @@ import { BagContext } from "../context/BagContext";
 import { navigationSlide, logoFade, mobileMenuSlide } from "../FramerMotion";
 import { Logo } from "../assets/display/Svg";
 
-const MenuBar = ({ showBag, navHidden, mobileMenu, showMobileMenu }) => {
+const MenuBar = ({ showCart, navHidden, mobileMenu, showMobileMenu }) => {
+    const { checkout } = useContext(BagContext);
+
     return (
         <Container className={`mainMenu ${showMobileMenu ? "mobile-open" : "mobile-closed"}`} initial="visible" animate={navHidden && !showMobileMenu ? "hidden" : "visible"} variants={navigationSlide}>
             <Content>
@@ -34,9 +36,9 @@ const MenuBar = ({ showBag, navHidden, mobileMenu, showMobileMenu }) => {
                     <Logo />
                 </NavLink>
                 <div className="right">
-                    <button className="cart" onClick={showBag}>
+                    <button className="cart" onClick={showCart}>
                         Bag
-                        <span className="cartAmount">0</span>
+                        <span className="cartAmount">{checkout.lineItems && checkout.lineItems.length > 0 ? checkout.lineItems.length : 0}</span>
                     </button>
                 </div>
             </Content>
@@ -113,7 +115,7 @@ const Mobile = () => {
 };
 
 const Navigation = () => {
-    const { showBag, bagIsOpen } = useContext(BagContext);
+    const { showCart, isCartOpen } = useContext(BagContext);
     const location = useLocation();
     const [navHidden, setNavHidden] = useState(false);
     const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -136,7 +138,7 @@ const Navigation = () => {
     useEffect(() => {
         scrollY.onChange(() => scrollDirection());
         setShowMobileMenu(false);
-    }, [bagIsOpen, location]);
+    }, [isCartOpen, location]);
 
     useLayoutEffect(() => {
         setOffset(document.querySelector(".mainMenu").getBoundingClientRect().height);
@@ -144,7 +146,7 @@ const Navigation = () => {
 
     return (
         <>
-            <MenuBar showBag={showBag} navHidden={navHidden} mobileMenu={mobileMenu} showMobileMenu={showMobileMenu} />
+            <MenuBar showCart={showCart} navHidden={navHidden} mobileMenu={mobileMenu} showMobileMenu={showMobileMenu} />
             <MobileMenu offset={offset} initial="hidden" animate={showMobileMenu ? "visible" : "hidden"} exit="exit" variants={mobileMenuSlide} style={{ pointerEvents: showMobileMenu ? "all" : "none" }}>
                 <Mobile showMobileMenu={showMobileMenu} />
             </MobileMenu>

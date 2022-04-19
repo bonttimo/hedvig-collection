@@ -1,8 +1,9 @@
+import { useLayoutEffect, useContext, useState } from "react";
+
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
-import image2 from "../assets/display/Hedvig-2021_12-1.jpg";
-import image9 from "../assets/display/Hedvig-2021_14-1.jpg";
+import { BagContext } from "../context/BagContext";
 
 import { FadeInStagger } from "../FramerMotion";
 import Button from "../components/Button";
@@ -10,57 +11,51 @@ import Button from "../components/Button";
 import { pageTransition } from "../FramerMotion";
 
 const Cart = () => {
-    const bagItems = [
-        {
-            id: 1,
-            title: "Daiquiri",
-            content: "Silk Chiffon Dress",
-            color: "balck",
-            size: "38",
-            price: "890",
-            qty: 1,
-            image: image2,
-        },
-        {
-            id: 2,
-            title: "Sui Lieviti",
-            content: "Dress",
-            color: "Light beige",
-            size: "38",
-            price: "390",
-            qty: 1,
-            image: image9,
-        },
-    ];
+    const { showCart, isCartOpen, checkout, removeItemFromCheckout } = useContext(BagContext);
 
     return (
         <Container className="page-cart" initial="enter" animate="animate" exit="exit" variants={pageTransition}>
             <Content>
                 <Products className="products" initial="start" animate="end" variants={FadeInStagger}>
-                    {bagItems.map((item) => {
-                        return (
-                            <Product key={item.id} variants={FadeInStagger}>
-                                <div className="content">
-                                    <h3>{item.title}</h3>
-                                    <Group className="fold">
-                                        <p>{item.content}</p>
-                                        <span>/</span>
-                                        <p>{item.color}</p>
-                                        <span>/</span>
-                                        <p>{item.size}</p>
-                                    </Group>
-                                    <Group>
-                                        <p>{item.price}€</p>
-                                        <p>{item.qty}x</p>
-                                    </Group>
-                                    <button className="scto">Remove</button>
-                                </div>
-                                <div className="image">
-                                    <img loading="lazy" src={item.image} alt="" />
-                                </div>
-                            </Product>
-                        );
-                    })}
+                    {checkout.lineItems && checkout.lineItems.length > 0 ? (
+                        <>
+                            {checkout.lineItems.map((item) => {
+                                return (
+                                    <Product key={item.id} variants={FadeInStagger}>
+                                        <div className="content">
+                                            <h3>{item.title}</h3>
+                                            <Group className="fold">
+                                                <p>{item.variant.title}</p>
+                                                {/* <span>/</span>
+                                                <p>{item.color}</p>
+                                                <span>/</span>
+                                                <p>{item.size}</p> */}
+                                            </Group>
+                                            <Group>
+                                                <p>{item.variant.price.replace(/\.00$/, "")}€</p>
+                                                <p>{item.quantity}x</p>
+                                            </Group>
+                                            <button
+                                                onClick={() => {
+                                                    removeItemFromCheckout(item.id);
+                                                }}
+                                                className="scto">
+                                                Remove
+                                            </button>
+                                        </div>
+                                        <div className="image">
+                                            <img loading="lazy" src={item.variant.image.src} alt="" />
+                                        </div>
+                                    </Product>
+                                );
+                            })}
+                        </>
+                    ) : (
+                        <Empty>
+                            <Button url="/shop" text="Shop now →" color="darkGreen" bg="offWhite" style="fill" />
+                            <p>Your bag is empty</p>
+                        </Empty>
+                    )}
                 </Products>
                 <Shipping>
                     <Group>
@@ -68,21 +63,22 @@ const Cart = () => {
                         <p>Express (1-3 days)</p>
                     </Group>
                     <Group>
+                        {checkout.lineItems && console.log(checkout)}
                         <p>Shipping cost</p>
-                        <p>0€</p>
+                        <p>{checkout.lineItems && checkout.lineItems.length > 0 && checkout.shippingLine?.price ? checkout.shippingLine.price.replace(/\.00$/, "") : "0"}€</p>
                     </Group>
                     <Group>
                         <p>Sales Tax</p>
-                        <p>215 €</p>
+                        <p>{checkout.lineItems && checkout.lineItems.length > 0 ? checkout.totalPrice.replace(/\.00$/, "") : "0"}€</p>
                     </Group>
                 </Shipping>
                 <Total>
                     <Group>
                         <p className="scto">Estimated</p>
-                        <p>895 €</p>
+                        <p>{checkout.lineItems && checkout.lineItems.length > 0 ? checkout.totalPrice.replace(/\.00$/, "") : "0"}€</p>
                     </Group>
                 </Total>
-                <Button url="#" text="Checkout →" color="darkGray" bg="darkGray" style="outline" />
+                <Button url={checkout.webUrl} text="Checkout →" color="darkGray" bg="darkGray" style="outline" />
             </Content>
         </Container>
     );
@@ -191,4 +187,10 @@ const Total = styled.section`
     ${Group} {
         justify-content: space-between;
     }
+`;
+
+const Empty = styled(motion.section)`
+    display: flex;
+    flex-direction: column;
+    text-align: center;
 `;

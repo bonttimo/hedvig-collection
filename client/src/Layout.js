@@ -16,13 +16,27 @@ const Layout = ({ children }) => {
     const [offset, setOffset] = useState(null);
 
     const onAnimationComplete = () => {
-        if (location.hash === "") window.scrollTo(0, 0);
+        if (location.hash === "") window.scrollTo({ top: 0, behavior: "smooth" });
         console.log("Animation complete");
     };
 
     useLayoutEffect(() => {
         setOffset(document.querySelector(".mainMenu").getBoundingClientRect().height);
     }, [location.pathname]);
+
+    const debounce = (cb, delay = 1000) => {
+        let timeout;
+
+        return (...args) => {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                cb(...args);
+            }, delay);
+        };
+    };
+
+    const debounceFunc = debounce(() => setOffset(document.querySelector(".mainMenu").getBoundingClientRect().height), 200);
+    window.addEventListener("resize", () => debounceFunc());
 
     return (
         <Page initial="enter" animate="animate" exit="exit" variants={pageTransition} onAnimationComplete={onAnimationComplete}>
