@@ -187,8 +187,8 @@ const Product = () => {
                                     </p>
                                     <ul>
                                         {Object.values(getSizes(showCorrectVariant(productVariants, { type: "Color", value: selectedColor }))).map(({ value, qty }, index) => (
-                                            <li key={index} className={qty <= 0 ? "soldOut" : ""}>
-                                                <p onClick={() => (qty > 0 ? selectSize(value) : "")} className={value === selectedSize ? "selected" : ""} data-size={value}>
+                                            <li key={index} className={`${qty <= 0 ? "soldOut" : ""} ${value === selectedSize ? "selected" : ""}`} onClick={() => (qty > 0 ? selectSize(value) : "")} data-size={value}>
+                                                <p onClick={() => (qty > 0 ? selectSize(value) : "")} data-size={value}>
                                                     {value}
                                                 </p>
                                             </li>
@@ -395,7 +395,10 @@ const Sizes = styled.section`
         list-style: none;
     }
     li {
+        transition: all ease-out 300ms;
         margin-left: 0.5rem;
+        padding: 0.3rem;
+
         &:first-child {
             margin-left: 0;
         }
@@ -403,9 +406,11 @@ const Sizes = styled.section`
             color: ${({ theme }) => theme.color.gray};
         }
         &:hover,
-        .selected {
+        &.selected {
+            background-color: ${({ theme }) => theme.color.black};
+            color: ${({ theme }) => theme.color.white};
             cursor: pointer;
-            text-decoration: underline;
+            /* text-decoration: underline; */
         }
     }
 `;
@@ -415,16 +420,20 @@ const Colors = styled.section`
     grid-template-columns: 1fr;
     grid-auto-rows: auto;
     gap: 0.5rem;
+    transition: all ease-out 300ms;
+
     & > section div {
-        width: 15px;
-        height: 15px;
+        width: 13px;
+        height: 13px;
         border-radius: 100px;
+        transition: all ease-out 300ms;
         &:hover,
         &.selected {
             cursor: pointer;
+            transform: scale(1.3);
             border: 1px solid ${({ theme }) => theme.color.black};
             outline: 1px solid ${({ theme }) => theme.color.white};
-            box-shadow: ${({ theme }) => theme.color.darkGray} 1px 2px 4px 0px;
+            /* box-shadow: ${({ theme }) => theme.color.darkGray} 1px 2px 4px 0px; */
         }
     }
 `;

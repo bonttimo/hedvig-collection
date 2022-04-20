@@ -38,7 +38,9 @@ export function BagProvider({ children }) {
         const checkoutId = state.checkout.id;
         const checkout = await window.client.checkout.addLineItems(checkoutId, lineItemsToAdd);
 
-        dispatch({ type: "OPENBAG", payload: true });
+        if (checkout.lineItems && checkout.lineItems.length <= 1) {
+            dispatch({ type: "OPENBAG", payload: true });
+        }
         dispatch({ type: "SETCHECKOUT", payload: checkout });
     };
 
