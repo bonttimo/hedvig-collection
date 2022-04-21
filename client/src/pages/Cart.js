@@ -57,7 +57,7 @@ const Cart = () => {
                         </Empty>
                     )}
                 </Products>
-                <Shipping>
+                {/* <Shipping>
                     <Group>
                         <p>Shipping</p>
                         <p>Express (1-3 days)</p>
@@ -71,7 +71,7 @@ const Cart = () => {
                         <p>Sales Tax</p>
                         <p>{checkout.lineItems && checkout.lineItems.length > 0 ? checkout.totalPrice.replace(/\.00$/, "") : "0"}€</p>
                     </Group>
-                </Shipping>
+                </Shipping> */}
                 <Total>
                     <Group>
                         <p className="scto">Estimated</p>

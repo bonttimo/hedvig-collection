@@ -71,10 +71,12 @@ const Bag = ({ ...props }) => {
                         )}
                     </Products>
                     <footer>
-                        <p className="scto">
+                        <p className="scto text-details">
                             In total <span>{checkout.lineItems && checkout.lineItems.length > 0 ? checkout.totalPrice.replace(/\.00$/, "") : "0"}€</span>
                         </p>
-                        <Link to="/cart">Edit Bag →</Link>
+                        <Link to="/cart" className="scto text-details">
+                            Edit Bag →
+                        </Link>
                     </footer>
                 </main>
 
@@ -125,6 +127,7 @@ const Content = styled.section`
             width: 64px;
             height: 64px;
             cursor: pointer;
+            stroke: ${({ theme }) => theme.color.offWhite};
         }
     }
 
@@ -207,4 +210,8 @@ const Product = styled(motion.section)`
 const Empty = styled(motion.section)`
     display: flex;
     flex-direction: column;
+    p {
+        text-align: center;
+        padding: 0 0 3rem 0;
+    }
 `;

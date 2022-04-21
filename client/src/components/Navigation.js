@@ -19,7 +19,7 @@ const MenuBar = ({ showCart, navHidden, mobileMenu, showMobileMenu }) => {
                         <NavLink className={({ isActive }) => (isActive ? "active" : "")} to="/">
                             Home
                         </NavLink>
-                        <span>|</span>
+                        {/* <span>|</span> */}
                         <NavLink className={({ isActive }) => (isActive ? "active" : "")} to="/shop">
                             Shop
                         </NavLink>

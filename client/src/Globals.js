@@ -38,15 +38,17 @@ export const GlobalStyles = createGlobalStyle`
 	:root {
 		--h1: 2rem;
 		--h2: 1.7rem;
-		--h3: 1.4rem;
-		--h4: 1.2rem;
+		--h3: 1.8rem;
+		--h4: 1.14rem;
 		--h5: 1rem;
-		--h6: 0.8rem;
-		--p: 1rem;
-		--a: 1rem;
+		--h6: 0.87rem; // 14px
+		--p: 0.87rem; // 14px
+		--a: 0.87rem; // 14px
+		--text-default: 1.1rem; // 18px
 		--text-large: 1.3rem;
-		--text-small: 0.8rem;
-		--text-details: 0.7rem;
+		--text-small: 0.87rem; // 14px
+		--text-details: 0.75rem; // 12px
+		--text-tiny: 0.625rem; // 10px
 
 		--maxWidth: 2400px;
 		--gutter: 6rem;
@@ -64,11 +66,12 @@ export const GlobalStyles = createGlobalStyle`
     h3, .h3 { font-size: var(--h3); }
     h4, .h4 { font-size: var(--h4); }
     h5, .h5 { font-size: var(--h5); }
-    h6, .h6 { font-size: var(--h6); }
+    h6, .h6 { font-size: var(--h6); font-family: SctoGroteskARegular;  }
 	p{ font-size: var(--p); line-height: 145%; }
 	a{ font-size: var(--a); font-family: "SctoGroteskARegular"; color: ${({ theme }) => theme.color.darkGray}; }
     strong { font-weight: bolder; font-family: "SctoGroteskARegular"; }
     em { font-style: italic; }
+	.uppercase{ text-transform: uppercase; }
 
 	.text-{
 		&large{
@@ -76,11 +79,12 @@ export const GlobalStyles = createGlobalStyle`
 		}
 		&small{
 			font-size: var(--text-small);
-			text-transform: uppercase;
 		}
 		&details{
 			font-size: var(--text-details);
-			text-transform: uppercase;
+		}
+		&default{
+			font-size: var(--text-default);
 		}
 	}
 
@@ -89,7 +93,9 @@ export const GlobalStyles = createGlobalStyle`
 	}
 
 	footer{
-		a{ font-size: var(--text-details); color: ${({ theme }) => theme.color.offWhite};  }
+		a{ font-size: var(--p); color: ${({ theme }) => theme.color.offWhite}; font-family: "NoeStandardLight";  }
+		h6{ font-size: var(--text-details); font-family: SctoGroteskARegular; }
+		.copyright{ font-size: var(--text-details); }
 	}
 
 	.page-{
@@ -104,6 +110,29 @@ export const GlobalStyles = createGlobalStyle`
 		&cart{
 			p, a, span{ font-family: "SctoGroteskARegular"; }
 		}
+		&about{
+			.intro{
+				p{ font-size: var(--text-large); line-height: 190%; }
+			}
+			.item{
+				p{ font-size: var(--text-default); }
+			}
+			@media only screen and (max-width: 1000px) {
+				main{
+					grid-template-columns: 1fr;
+					.intro{
+						grid-column: 1;
+						p{ font-size: var(--text-default); line-height: 190%; }
+					}
+				}
+			}
+		}
+		&privacy-policy{
+			main{
+				h6{ font-size: var(--text-details); }
+				p, a{ font-size: var(--text-default); }
+			}
+		}
 	}
 
 	.component-{
@@ -113,6 +142,20 @@ export const GlobalStyles = createGlobalStyle`
 		&bag{
 			.products{
 				p, a, span{ font-size: var(--text-details); font-family: "SctoGroteskARegular"; }
+			}
+		}
+		&imageBlock{
+			button a{ font-size: 0.87rem; }
+		}
+		&imageBlockItem{
+			p{ font-size: 1.8rem; }
+			button a{ font-size: 0.87rem; }
+		}
+		&newsletterAndContact{
+			.newsletter{
+				button{
+					font-size: var(--text-tiny);
+				}
 			}
 		}
 	}
@@ -126,7 +169,7 @@ export const GlobalStyles = createGlobalStyle`
 		cursor: pointer;
 	}
 
-	@media only screen and (max-width: 824px) {
+	@media only screen and (max-width: 900px) {
 		:root {
 			--gutter: 2rem;
 			--offsetTop: 2rem;

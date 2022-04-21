@@ -28,7 +28,7 @@ const App = () => {
 
     return (
         <ThemeProvider theme={theme}>
-            {/* <SizeChart /> */}
+            <SizeChart />
             <GlobalStyles />
             <AnimatePresence exitBeforeEnter>
                 <Layout key={location.pathname}>

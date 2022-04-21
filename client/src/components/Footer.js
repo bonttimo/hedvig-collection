@@ -1,58 +1,59 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const Footer = ({ url, text, color = "offWhite", style = "default" }) => {
+import NewsletterAndContact from "./NewsletterAndContact";
+
+const Footer = () => {
     return (
-        <Container>
-            <Content>
-                <Item>
-                    <h6>Returns & Privacy</h6>
-                    <ul>
-                        <li>
-                            <Link to="/privacy-policy#shipping-privacy">Refund Policy</Link>
-                        </li>
-                        <li>
-                            <Link to="/privacy-policy#pre-order">Pre-Order</Link>
-                        </li>
-                        <li>
-                            <Link to="/privacy-policy#privacy-policy">Privacy Policy</Link>
-                        </li>
-                        <li>
-                            <Link to="/privacy-policy#terms-of-service">Terms of Service</Link>
-                        </li>
-                        <li>
-                            <Link to="/privacy-policy#shipping-and-deliveries">Shipping & Deliveries</Link>
-                        </li>
-                    </ul>
-                </Item>
-                <Item>
-                    <h6>Follow us</h6>
-                    <ul>
-                        <li>
-                            <Link to="/">Instagram</Link>
-                        </li>
-                        <li>
-                            <Link to="/">Facebook</Link>
-                        </li>
-                        <li>
-                            <Link to="/">Linkedin</Link>
-                        </li>
-                    </ul>
-                </Item>
-                <Item>
-                    <h6>Site</h6>
-                    <ul>
-                        <li>
-                            <Link to="/">Shop</Link>
-                        </li>
-                        <li>
-                            <Link to="/">About</Link>
-                        </li>
-                    </ul>
-                </Item>
-                <p className="copyright">© Hedvig Collection 2022. All rights reserved</p>
-            </Content>
-        </Container>
+        <>
+            <NewsletterAndContact />
+            <Container>
+                <Content>
+                    <Item>
+                        <h6>Returns & Privacy</h6>
+                        <ul>
+                            <li>
+                                <Link to="/privacy-policy#shipping-privacy">Refund Policy</Link>
+                            </li>
+                            <li>
+                                <Link to="/privacy-policy#pre-order">Pre-Order</Link>
+                            </li>
+                            <li>
+                                <Link to="/privacy-policy#privacy-policy">Privacy Policy</Link>
+                            </li>
+                            <li>
+                                <Link to="/privacy-policy#terms-of-service">Terms of Service</Link>
+                            </li>
+                            <li>
+                                <Link to="/privacy-policy#shipping-and-deliveries">Shipping & Deliveries</Link>
+                            </li>
+                        </ul>
+                    </Item>
+                    <Item>
+                        <h6>Follow us</h6>
+                        <ul>
+                            <li>
+                                <a href="https://www.instagram.com/hedvigcollection" target="_blank" rel="noreferrer">
+                                    Instagram
+                                </a>
+                            </li>
+                        </ul>
+                    </Item>
+                    <Item>
+                        <h6>Site</h6>
+                        <ul>
+                            <li>
+                                <Link to="/shop">Shop</Link>
+                            </li>
+                            <li>
+                                <Link to="/about">About</Link>
+                            </li>
+                        </ul>
+                    </Item>
+                    <p className="copyright scto">© Hedvig Collection {new Date().getFullYear()}. All rights reserved</p>
+                </Content>
+            </Container>
+        </>
     );
 };
 

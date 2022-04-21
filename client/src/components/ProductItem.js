@@ -8,9 +8,8 @@ import { getSizes, getColors } from "../functions/product";
 const ConditionalWrapper = ({ condition, wrapper, children }) => (condition ? wrapper(children) : children);
 
 const ProductItem = ({ style = "default", colors = [], sizes = {}, preorder = false, img = null, title = null, material = "", description = null, price = null, url = "", ...props }) => {
-    const _sizes = getSizes(sizes);
+    const _sizes = getSizes(sizes, true);
     const _colors = getColors(colors);
-    console.log(_colors);
     return (
         <Container className={`component-product product-${style}`} initial="start" animate="end" variants={FadeIn}>
             <ConditionalWrapper
@@ -178,8 +177,8 @@ const ProductData = styled.section`
 const Body = styled.section`
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: center;
-    align-items: baseline;
     margin-top: 2rem;
 
     .title {

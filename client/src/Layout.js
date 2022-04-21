@@ -16,11 +16,12 @@ const Layout = ({ children }) => {
     const [offset, setOffset] = useState(null);
 
     const onAnimationComplete = () => {
-        if (location.hash === "") window.scrollTo({ top: 0, behavior: "smooth" });
+        // if (location.hash === "") window.scrollTo({ top: 0, behavior: "smooth" });
         console.log("Animation complete");
     };
 
     useLayoutEffect(() => {
+        if (location.hash === "") window.scrollTo({ top: 0, behavior: "smooth" });
         setOffset(document.querySelector(".mainMenu").getBoundingClientRect().height);
     }, [location.pathname]);
 

@@ -58,8 +58,8 @@ const Home = () => {
             </ImageBlock>
 
             <ImageBlock color="offWhite" footer="MACARON silk dress electric blue ">
-                <ImageBlockItem image={image4} title="Hedvig Knit — Merino Wool Sweater Aniline" button="See more" url="/about" />
-                <ImageBlockItem title="Hedvig Knit — Merino Wool Sweater Aniline" body="Helsinki-based womenswear brand that values the beauty of enjoyment with a responsible approach to all we do." button="See more" url="/about" bg="darkPurple" style="left" />
+                <ImageBlockItem image={image4} title="Macaron — Silk Dress Electric Blue" button="See more" url="/about" />
+                <ImageBlockItem title="" body="Helsinki-based womenswear brand that values the beauty of enjoyment with a responsible approach to all we do." button="See more" url="/about" bg="darkPurple" style="left" />
             </ImageBlock>
 
             <ImageBlock color="offWhite" footer="MACARON silk dress plum">

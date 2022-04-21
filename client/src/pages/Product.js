@@ -2,7 +2,7 @@ import { useState, useLayoutEffect, useContext, useEffect } from "react";
 import styled from "styled-components";
 import { useParams, Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper";
+import { Pagination, Navigation } from "swiper";
 import { motion, AnimatePresence } from "framer-motion";
 
 import "swiper/css";
@@ -143,15 +143,16 @@ const Product = () => {
                     </Error>
                 )}
             </AnimatePresence>
-            {product !== null && selectedColor !== null && (
+            {product !== null && selectedColor !== null ? (
                 <>
                     <Content>
                         <Gallery initial="start" animate="end" variants={FadeIn}>
                             <Swiper
-                                modules={[Pagination]}
+                                modules={[Pagination, Navigation]}
                                 spaceBetween={0}
                                 slidesPerView={1}
                                 autoHeight={true}
+                                navigation
                                 pagination={{ clickable: true, type: "progressbar", el: ".gallery-pagination" }}
                                 scrollbar={{ draggable: true }}
                                 onSwiper={(swiper) => {
@@ -166,8 +167,8 @@ const Product = () => {
                             </Swiper>
 
                             <ProductStatus className="product-status">
-                                <Preorder>Pre order</Preorder>
-                                <SoldOut>Sold Out</SoldOut>
+                                {/* <Preorder>Pre order</Preorder> */}
+                                {!product.availableForSale && <SoldOut>Sold Out</SoldOut>}
                             </ProductStatus>
                             <div className="gallery-pagination"></div>
                         </Gallery>
@@ -183,11 +184,11 @@ const Product = () => {
                             <Group>
                                 <Sizes>
                                     <p>
-                                        Sizes available (EU) <a href="#">Size quide →</a>
+                                        Sizes available (EU) <button>Size quide →</button>
                                     </p>
                                     <ul>
                                         {Object.values(getSizes(showCorrectVariant(productVariants, { type: "Color", value: selectedColor }))).map(({ value, qty }, index) => (
-                                            <li key={index} className={`${qty <= 0 ? "soldOut" : ""} ${value === selectedSize ? "selected" : ""}`} onClick={() => (qty > 0 ? selectSize(value) : "")} data-size={value}>
+                                            <li key={index} className={`${qty <= 0 ? "soldOut" : "available"} ${value === selectedSize ? "selected" : ""}`} onClick={() => (qty > 0 ? selectSize(value) : "")} data-size={value}>
                                                 <p onClick={() => (qty > 0 ? selectSize(value) : "")} data-size={value}>
                                                     {value}
                                                 </p>
@@ -208,7 +209,7 @@ const Product = () => {
                             </Group>
                             <Group>
                                 <Button url="#" text="Add to bag →" disabled={selectedProduct === null ? true : false} color="white" bg="lightBlue" style="fill" onClick={addItem} />
-                                <Button url="#" text="Preorder" color="gray" bg="gray" style="outline" />
+                                {/* <Button url="#" text="Preorder" color="gray" bg="gray" style="outline" /> */}
                             </Group>
                             <Group className="productInfo" dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}></Group>
                         </ProductDetails>
@@ -229,6 +230,10 @@ const Product = () => {
                         )}
                     </RelatedProducts>
                 </>
+            ) : (
+                <Loading>
+                    <h4>Loading product...</h4>
+                </Loading>
             )}
         </Container>
     );
@@ -255,6 +260,7 @@ const Content = styled.section`
         max-width: 290px;
         text-align: center;
         justify-content: center;
+        padding: 0;
     }
 
     @media only screen and (max-width: 1524px) {
@@ -301,6 +307,13 @@ const Gallery = styled(motion.section)`
         background-color: ${({ theme }) => theme.color.gray};
         .swiper-pagination-progressbar-fill {
             background-color: ${({ theme }) => theme.color.darkGray};
+        }
+    }
+
+    .swiper-button-prev,
+    .swiper-button-next {
+        &:after {
+            color: ${({ theme }) => theme.color.black};
         }
     }
 
@@ -405,12 +418,14 @@ const Sizes = styled.section`
         &.soldOut {
             color: ${({ theme }) => theme.color.gray};
         }
-        &:hover,
-        &.selected {
-            background-color: ${({ theme }) => theme.color.black};
-            color: ${({ theme }) => theme.color.white};
-            cursor: pointer;
-            /* text-decoration: underline; */
+        &.available {
+            &:hover,
+            &.selected {
+                background-color: ${({ theme }) => theme.color.black};
+                color: ${({ theme }) => theme.color.white};
+                cursor: pointer;
+                /* text-decoration: underline; */
+            }
         }
     }
 `;
@@ -427,13 +442,27 @@ const Colors = styled.section`
         height: 13px;
         border-radius: 100px;
         transition: all ease-out 300ms;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         &:hover,
         &.selected {
             cursor: pointer;
             transform: scale(1.3);
-            border: 1px solid ${({ theme }) => theme.color.black};
-            outline: 1px solid ${({ theme }) => theme.color.white};
-            /* box-shadow: ${({ theme }) => theme.color.darkGray} 1px 2px 4px 0px; */
+            &:after {
+                opacity: 1;
+            }
+        }
+        &:after {
+            transition: all ease-out 300ms;
+            content: "";
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background-color: ${({ theme }) => theme.color.white};
+            border-radius: 100px;
+            opacity: 0;
+            box-shadow: 0 0 0 1px ${({ theme }) => theme.color.darkGray};
         }
     }
 `;
@@ -502,4 +531,13 @@ const Error = styled(motion.section)`
     background-color: ${({ theme }) => theme.color.black};
     color: ${({ theme }) => theme.color.white};
     cursor: pointer;
+`;
+
+const Loading = styled(motion.section)`
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 100px);
 `;

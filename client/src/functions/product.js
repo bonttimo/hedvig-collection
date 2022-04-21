@@ -1,13 +1,16 @@
-export const getSizes = (sizes) => {
+export const getSizes = (sizes, unique = false) => {
     let returnSizes = [];
     sizes.forEach((size) => {
-        size.selectedOptions.filter((option) => option.name === "Size").map((option) => returnSizes.push({ value: option.value, qty: size.quantityAvailable }));
-        // size.selectedOptions.filter((option) => option.name === "Size").map((option) => (!returnSizes.some(({ value }) => value === option.value) ? returnSizes.push({ value: option.value, qty: size.quantityAvailable }) : null));
+        if (unique) {
+            size.selectedOptions.filter((option) => option.name === "Size").map((option) => (!returnSizes.some(({ value }) => value === option.value) ? returnSizes.push({ value: option.value, qty: size.quantityAvailable }) : null));
+        } else {
+            size.selectedOptions.filter((option) => option.name === "Size").map((option) => returnSizes.push({ value: option.value, qty: size.quantityAvailable }));
+        }
     });
     return returnSizes;
 };
 
-export const getColors = (colors) => {
+export const getColors = (colors, unique = false) => {
     let returnColors = [];
     colors.forEach((color) => {
         const colorOptions = color.selectedOptions.filter((option) => option.name === "Color").map((option) => ({ name: option.value, qty: color.quantityAvailable }))[0];

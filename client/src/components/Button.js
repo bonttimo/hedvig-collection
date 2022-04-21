@@ -4,7 +4,9 @@ const Button = ({ url, text, color = "offWhite", bg = "transparent", style = "de
     return (
         <Container onClick={onClick} disabled={disabled} className={`button style-${style}`} color={color} bg={bg}>
             <span></span>
-            <a href={url}>{text}</a>
+            <a className="text-details" href={url}>
+                {text}
+            </a>
         </Container>
     );
 };
@@ -20,7 +22,6 @@ const Container = styled.button`
         margin-left: 0.7rem;
         color: ${({ theme, color }) => theme.color[color]};
         text-transform: uppercase;
-        font-size: 0.7rem;
         text-decoration: none;
     }
     span {

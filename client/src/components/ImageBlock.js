@@ -26,7 +26,7 @@ const ImageBlock = ({ children, footer = null, bg = "offWhite", color = "offWhit
             </Content>
             {footer && (
                 <Footer className="text-details">
-                    <h5>{footer}</h5>
+                    <h6 className="scto">{footer}</h6>
                 </Footer>
             )}
         </Container>
@@ -58,7 +58,7 @@ const Content = styled.section`
     }
 `;
 
-const Footer = styled.section`
+const Footer = styled.footer`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -78,7 +78,8 @@ const Item = styled(motion.section)`
 
     &.has-content {
         .content {
-            max-width: 65%;
+            width: 100%;
+            max-width: 500px;
             .body {
                 margin-bottom: 2rem;
             }
@@ -97,6 +98,9 @@ const Item = styled(motion.section)`
             text-align: left;
             .content {
                 align-items: left;
+                button {
+                    justify-content: flex-start;
+                }
             }
         }
     }
