@@ -17,8 +17,6 @@ import Cart from "./pages/Cart";
 import About from "./pages/About";
 import PrivacyPolicy from "./pages/Privacy-policy";
 
-import SizeChart from "./components/SizeChart";
-
 const App = () => {
     const location = useLocation();
 
@@ -28,7 +26,6 @@ const App = () => {
 
     return (
         <ThemeProvider theme={theme}>
-            <SizeChart />
             <GlobalStyles />
             <AnimatePresence exitBeforeEnter>
                 <Layout key={location.pathname}>

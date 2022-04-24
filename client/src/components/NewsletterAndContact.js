@@ -24,11 +24,16 @@ const NewsletterAndContact = () => {
 
 export default NewsletterAndContact;
 
-const Container = styled.footer`
+const Container = styled.section`
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: ${({ theme }) => theme.color.lightBlue};
+
+    p,
+    a {
+        font-size: var(--text-small);
+    }
 `;
 
 const Content = styled.section`

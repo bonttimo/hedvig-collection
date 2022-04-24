@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.e61fcce9.css",
-    "main.js": "/static/js/main.21d02a47.js",
+    "main.js": "/static/js/main.84c2d431.js",
     "static/media/hedvig.mp4": "/static/media/hedvig.62625ad70dbee47c828c.mp4",
     "static/media/Hedvig-2021_10-1.jpg": "/static/media/Hedvig-2021_10-1.aaad24865a2cd64d07b8.jpg",
     "static/media/4A6A1036-1.jpg": "/static/media/4A6A1036-1.f731a11acfbe28a980bf.jpg",
@@ -9,20 +9,20 @@
     "static/media/Hedvig-2021_3-2.jpg": "/static/media/Hedvig-2021_3-2.65dbc71fe83666b287b5.jpg",
     "static/media/Hedvig-2021_20-1.jpg": "/static/media/Hedvig-2021_20-1.e39949d7ad2adb0293cd.jpg",
     "static/media/4A6A9923-3-1.jpg": "/static/media/4A6A9923-3-1.fe6fb1b65d728dd4e6f7.jpg",
+    "static/media/sizeChart.svg": "/static/media/sizeChart.575b3802ed235797966aa59b7a83e633.svg",
     "static/media/4A6A0151-2-1.jpg": "/static/media/4A6A0151-2-1.2a0e6153de0a4054e778.jpg",
     "static/media/4A6A9938-1.jpg": "/static/media/4A6A9938-1.1ff4094c75e9fc899718.jpg",
     "static/media/Hedvig-2021_12-1.jpg": "/static/media/Hedvig-2021_12-1.e723c27ff055f9ad7a41.jpg",
     "static/media/Screenshot-2022-02-20-at-12-13-1.jpg": "/static/media/Screenshot-2022-02-20-at-12-13-1.241858b6c62180f2e323.jpg",
     "static/media/Screenshot-2022-02-20-at-12-14-1.jpg": "/static/media/Screenshot-2022-02-20-at-12-14-1.993fb5fda904786a7a19.jpg",
-    "static/media/sizeChart.png": "/static/media/sizeChart.90c9b6db38b8cfe40147.png",
     "static/media/NoeStandard-Light.woff2": "/static/media/NoeStandard-Light.a693d7d9abd44b190539.woff2",
     "static/media/SctoGroteskA-Regular.woff2": "/static/media/SctoGroteskA-Regular.0f8e0816dfb05060629c.woff2",
     "index.html": "/index.html",
     "main.e61fcce9.css.map": "/static/css/main.e61fcce9.css.map",
-    "main.21d02a47.js.map": "/static/js/main.21d02a47.js.map"
+    "main.84c2d431.js.map": "/static/js/main.84c2d431.js.map"
   },
   "entrypoints": [
     "static/css/main.e61fcce9.css",
-    "static/js/main.21d02a47.js"
+    "static/js/main.84c2d431.js"
   ]
 }

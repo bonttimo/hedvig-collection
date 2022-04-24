@@ -54,6 +54,12 @@ export const coockieFade = {
     exit: { opacity: 0, transition: { duration: 0.5, ease: "circIn" } },
 };
 
+export const sizeFade = {
+    visible: { opacity: 1, transition: { duration: 0.2, ease: "circIn" } },
+    hidden: { opacity: 0, transition: { duration: 0.2, ease: "circIn" } },
+    exit: { opacity: 0, transition: { duration: 0.2, ease: "circIn" } },
+};
+
 export const FadeIn = {
     start: { opacity: 0, transition: { duration: 0.4, ease: "circIn" } },
     end: { opacity: 1, transition: { duration: 0.4, ease: "circIn" } },

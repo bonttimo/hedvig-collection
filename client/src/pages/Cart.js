@@ -1,4 +1,4 @@
-import { useLayoutEffect, useContext, useState } from "react";
+import { useContext } from "react";
 
 import styled from "styled-components";
 import { motion } from "framer-motion";
@@ -20,26 +20,25 @@ const Cart = () => {
                     {checkout.lineItems && checkout.lineItems.length > 0 ? (
                         <>
                             {checkout.lineItems.map((item) => {
+                                {
+                                    console.log(item);
+                                }
                                 return (
                                     <Product key={item.id} variants={FadeInStagger}>
                                         <div className="content">
-                                            <h3>{item.title}</h3>
+                                            <h4>{item.title}</h4>
                                             <Group className="fold">
                                                 <p>{item.variant.title}</p>
-                                                {/* <span>/</span>
-                                                <p>{item.color}</p>
-                                                <span>/</span>
-                                                <p>{item.size}</p> */}
                                             </Group>
                                             <Group>
-                                                <p>{item.variant.price.replace(/\.00$/, "")}€</p>
-                                                <p>{item.quantity}x</p>
+                                                <p>{item.variant.price.replace(/\.00$/, "")} €</p>
                                             </Group>
+                                            <p>Quantity: {item.quantity}</p>
                                             <button
                                                 onClick={() => {
                                                     removeItemFromCheckout(item.id);
                                                 }}
-                                                className="scto">
+                                                className="scto uppercase remove">
                                                 Remove
                                             </button>
                                         </div>
@@ -57,8 +56,8 @@ const Cart = () => {
                         </Empty>
                     )}
                 </Products>
-                {/* <Shipping>
-                    <Group>
+                <Shipping>
+                    {/* <Group>
                         <p>Shipping</p>
                         <p>Express (1-3 days)</p>
                     </Group>
@@ -66,16 +65,16 @@ const Cart = () => {
                         {checkout.lineItems && console.log(checkout)}
                         <p>Shipping cost</p>
                         <p>{checkout.lineItems && checkout.lineItems.length > 0 && checkout.shippingLine?.price ? checkout.shippingLine.price.replace(/\.00$/, "") : "0"}€</p>
-                    </Group>
+                    </Group> */}
                     <Group>
                         <p>Sales Tax</p>
-                        <p>{checkout.lineItems && checkout.lineItems.length > 0 ? checkout.totalPrice.replace(/\.00$/, "") : "0"}€</p>
+                        <p>{checkout.lineItems && checkout.lineItems.length > 0 ? checkout.totalTax.replace(/\.00$/, "") : "0"} €</p>
                     </Group>
-                </Shipping> */}
+                </Shipping>
                 <Total>
                     <Group>
                         <p className="scto">Estimated</p>
-                        <p>{checkout.lineItems && checkout.lineItems.length > 0 ? checkout.totalPrice.replace(/\.00$/, "") : "0"}€</p>
+                        <p>{checkout.lineItems && checkout.lineItems.length > 0 ? checkout.totalPrice.replace(/\.00$/, "") : "0"} €</p>
                     </Group>
                 </Total>
                 <Button url={checkout.webUrl} text="Checkout →" color="darkGray" bg="darkGray" style="outline" />
@@ -90,6 +89,20 @@ const Container = styled(motion.section)`
     position: relative;
     min-height: 100vh;
     width: 100%;
+
+    header {
+        p {
+            font-size: var(--text-small);
+            font-family: var(--noeStandard);
+        }
+    }
+
+    p,
+    a,
+    button {
+        font-size: var(--text-smaller);
+        font-family: var(--scto);
+    }
 `;
 
 const Content = styled(motion.section)`
@@ -145,17 +158,17 @@ const Product = styled(motion.section)`
     .image {
         margin-left: 1rem;
     }
-    h3 {
-        margin-bottom: 0.3rem;
+    h4 {
+        margin-bottom: 0.5rem;
     }
     img {
-        max-width: 200px;
+        max-width: 160px;
     }
     button {
         text-decoration: underline;
-        margin: auto auto auto 0;
+        margin: 3rem auto auto 0;
         padding: 0;
-        color: ${({ theme }) => theme.color.gray};
+        color: ${({ theme }) => theme.color.darkGray};
     }
 
     @media only screen and (max-width: 784px) {

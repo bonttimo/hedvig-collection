@@ -40,10 +40,10 @@ const Home = () => {
                 <iframe ref={iframe} title="The sisterhood reel" rel="noreferrer" src={`https://player.vimeo.com/video/663687557?autoplay=1&loop=1&background=1`}></iframe>
             </Iframe> */}
             </Header>
-            <Intro>
+            <Intro className="intro">
                 <div className="content">
-                    <p className="text-large">Take me with you.</p>
-                    <p className="text-large">Take me to the nicest people, to the loudest laughter, to the most intriguing conversations, to the most ravishing dance, to the most fascinating art! Take me with you through time, from the present to what-will-become.</p>
+                    <p>Take me with you.</p>
+                    <p>Take me to the nicest people, to the loudest laughter, to the most intriguing conversations, to the most ravishing dance, to the most fascinating art! Take me with you through time, from the present to what-will-become.</p>
                     <Button url="/about" text="read our story" color="gray" />
                 </div>
             </Intro>
@@ -86,6 +86,23 @@ const Container = styled(motion.section)`
     min-height: 100vh;
     width: 100%;
     background-color: ${({ theme }) => theme.color.offWhite};
+
+    .intro {
+        p {
+            margin-bottom: 1.5rem;
+            line-height: 150%;
+            font-size: var(--text-huge);
+        }
+        button a {
+            font-size: var(--text-small);
+        }
+
+        @media only screen and (max-width: 900px) {
+            button a {
+                font-size: var(--text-tiny);
+            }
+        }
+    }
 `;
 
 const Header = styled.header`
@@ -136,13 +153,8 @@ const Iframe = styled.section`
 const Intro = styled.section`
     padding: 3rem;
     .content {
-        max-width: 45%;
+        max-width: 65%;
         margin: 0 0 0 auto;
-
-        p {
-            margin-bottom: 1.5rem;
-            line-height: 150%;
-        }
     }
 
     @media only screen and (max-width: 784px) {

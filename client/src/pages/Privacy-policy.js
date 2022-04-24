@@ -47,20 +47,20 @@ const PrivacyPolicy = () => {
         <Container className="page-privacy-policy" initial="enter" animate="animate" exit="exit" variants={pageTransition}>
             <Content>
                 <Aside>
-                    <h6 className="text-details">Shipping & Privacy</h6>
-                    <button className="h3 noeStandard" onClick={scrollToTarget} data-target="#refund-policy">
+                    <h6>Shipping & Privacy</h6>
+                    <button onClick={scrollToTarget} data-target="#refund-policy">
                         Refund Policy
                     </button>
-                    <button className="h3 noeStandard" onClick={scrollToTarget} data-target="#pre-order">
+                    <button onClick={scrollToTarget} data-target="#pre-order">
                         Pre-order
                     </button>
-                    <button className="h3 noeStandard" onClick={scrollToTarget} data-target="#privacy-policy">
+                    <button onClick={scrollToTarget} data-target="#privacy-policy">
                         Privacy Policy
                     </button>
-                    <button className="h3 noeStandard" onClick={scrollToTarget} data-target="#terms-of-service">
+                    <button onClick={scrollToTarget} data-target="#terms-of-service">
                         Terms of service
                     </button>
-                    <button className="h3 noeStandard" onClick={scrollToTarget} data-target="#shipping-and-deliveries">
+                    <button onClick={scrollToTarget} data-target="#shipping-and-deliveries">
                         Shipping & Deliveries
                     </button>
                 </Aside>
@@ -378,6 +378,21 @@ const Container = styled(motion.section)`
     background-color: ${({ theme }) => theme.color.offWhite};
     display: flex;
     flex-direction: column;
+
+    aside {
+        button {
+            font-size: var(--text-huge);
+            font-family: var(--noeStandard);
+        }
+    }
+
+    @media only screen and (max-width: 900px) {
+        aside {
+            h6 {
+                font-size: 0.75rem;
+            }
+        }
+    }
 `;
 
 const Content = styled.section`

@@ -21,36 +21,39 @@ const ProductItem = ({ style = "default", colors = [], sizes = {}, preorder = fa
                 )}>
                 <Content>
                     <Image>
-                        <img loading="lazy" src={img} alt="" />
-                        <ProductData>
-                            <header>
-                                {preorder === true || (preorder === "true" && <p className="preOrder">Preorder</p>)}
-                                {Object.values(sizes).every((size) => parseInt(size) <= 0) && <p className="soldOut">Sold out</p>}
-                            </header>
-                            <footer>
-                                <div className="sizes">
-                                    <p>Sizes (EU):</p>
-                                    {Object.values(_sizes).map(({ value, qty }, index) => (
-                                        <p key={index} className={qty <= 0 ? "soldOut" : ""}>
-                                            {value}
-                                        </p>
-                                    ))}
-                                </div>
+                        <div className="img">
+                            <img loading="lazy" src={img} alt="" />
 
-                                <div className="colors">
-                                    <p>Colours</p>
-                                    {Object.values(_colors).map(({ value, qty }, index) => (
-                                        <div key={index} style={{ backgroundColor: value }}></div>
-                                    ))}
-                                </div>
-                                {material !== "" && <p className="material">Material: {material}</p>}
-                            </footer>
-                        </ProductData>
+                            <ProductData>
+                                <header>
+                                    {preorder === true || (preorder === "true" && <p className="preOrder">Preorder</p>)}
+                                    {Object.values(sizes).every((size) => parseInt(size) <= 0) && <p className="soldOut">Sold out</p>}
+                                </header>
+                                <footer>
+                                    <div className="sizes">
+                                        <p>Sizes (EU):</p>
+                                        {Object.values(_sizes).map(({ value, qty }, index) => (
+                                            <p key={index} className={qty <= 0 ? "soldOut" : ""}>
+                                                {value}
+                                            </p>
+                                        ))}
+                                    </div>
+
+                                    <div className="colors">
+                                        <p>Colours</p>
+                                        {Object.values(_colors).map(({ value, qty }, index) => (
+                                            <div key={index} style={{ backgroundColor: value }}></div>
+                                        ))}
+                                    </div>
+                                    {material !== "" && <p className="material">Material: {material}</p>}
+                                </footer>
+                            </ProductData>
+                        </div>
                     </Image>
                     <Body>
                         <h3 className="title">{title}</h3>
                         <div className="group">
-                            <p className="discription">{description}</p>
+                            <p className="description">{description}</p>
                             <span> </span>
                             <p className="price">{price} €</p>
                         </div>
@@ -73,6 +76,29 @@ const Container = styled(motion.section)`
         flex-direction: column;
         height: 100%;
     }
+
+    .sizes,
+    .colors {
+        a,
+        p {
+            font-size: var(--text-smaller);
+        }
+    }
+    p.description,
+    p.price {
+        font-size: var(--text-smaller);
+    }
+
+    @media only screen and (max-width: 1400px) {
+        h3.title {
+            font-size: var(--text-medium);
+        }
+    }
+    @media only screen and (max-width: 900px) {
+        h3.title {
+            font-size: var(--text-huge);
+        }
+    }
 `;
 
 const Content = styled.section`
@@ -93,6 +119,15 @@ const Image = styled.section`
     flex-direction: column;
     height: 100%;
     width: 100%;
+
+    .img {
+        padding-top: 177%;
+        height: 0;
+    }
+    img {
+        position: absolute;
+        top: 0;
+    }
 `;
 
 const ProductData = styled.section`
@@ -179,7 +214,9 @@ const Body = styled.section`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    justify-content: space-between;
     margin-top: 2rem;
+    height: 100%;
 
     .title {
         margin-bottom: 1rem;
@@ -195,8 +232,20 @@ const Body = styled.section`
             width: 1px;
             height: 7px;
         }
-        .discription {
+        .description {
             text-transform: uppercase;
+        }
+    }
+
+    @media only screen and (max-width: 1100px) {
+        margin-top: 1rem;
+        .group {
+            gap: 0.4rem;
+
+            .description,
+            span {
+                display: none;
+            }
         }
     }
 
@@ -211,5 +260,13 @@ const Body = styled.section`
 
     @media only screen and (max-width: 784px) {
         margin-top: 1rem;
+
+        .group {
+            .price,
+            span,
+            .description {
+                display: flex;
+            }
+        }
     }
 `;

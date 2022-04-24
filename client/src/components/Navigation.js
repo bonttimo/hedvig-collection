@@ -195,11 +195,14 @@ const Container = styled(motion.nav)`
 
     a,
     button {
+        font-size: var(--text-small);
         color: ${({ theme }) => theme.color.darkGray};
     }
+
     .mobile {
         display: none;
     }
+
     @media only screen and (max-width: 784px) {
         .desktop {
             display: none;
@@ -308,5 +311,14 @@ const MobileMenu = styled(motion.nav)`
     }
     h6 {
         color: ${({ theme }) => theme.color.gray};
+        font-size: 0.75rem;
+        font-family: var(--scto);
+    }
+
+    a,
+    button {
+        font-size: var(--text-small);
+        color: ${({ theme }) => theme.color.darkGray};
+        font-family: var(--noeStandard);
     }
 `;

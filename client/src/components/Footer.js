@@ -80,6 +80,20 @@ const Container = styled.footer`
         grid-column: 1/-1;
     }
 
+    h6,
+    .copyright {
+        font-size: var(--text-smaller);
+    }
+    p,
+    a {
+        font-size: var(--text-small);
+    }
+
+    @media only screen and (max-width: 900px) {
+        .copyright {
+            font-size: 0.625rem;
+        }
+    }
     @media only screen and (max-width: 784px) {
         padding: 2rem 0 0 0;
         .copyright {
@@ -111,6 +125,9 @@ const Item = styled.section`
     h6 {
         color: ${({ theme }) => theme.color.lightGreen};
         margin-bottom: 2rem;
+    }
+    a {
+        color: ${({ theme }) => theme.color.offWhite};
     }
     ul {
         list-style: none;

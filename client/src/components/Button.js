@@ -4,9 +4,7 @@ const Button = ({ url, text, color = "offWhite", bg = "transparent", style = "de
     return (
         <Container onClick={onClick} disabled={disabled} className={`button style-${style}`} color={color} bg={bg}>
             <span></span>
-            <a className="text-details" href={url}>
-                {text}
-            </a>
+            <a href={url}>{text}</a>
         </Container>
     );
 };

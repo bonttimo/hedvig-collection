@@ -1,29 +1,22 @@
-import { useState } from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 
 import { Close } from "../assets/display/Svg";
-import { coockieFade } from "../FramerMotion";
+import { sizeFade } from "../FramerMotion";
 
-import sizeChart from "../assets/display/sizeChart.png";
+import sizeChart from "../assets/display/sizeChart.svg";
 
-const SizeChart = () => {
-    const [isOpen, setIsOpen] = useState(false);
-
-    const onClick = () => {
-        setIsOpen(!isOpen);
-    };
-
+const SizeChart = ({ open, close }) => {
     return ReactDOM.createPortal(
         <>
             <AnimatePresence key="sizeChart">
-                {isOpen && (
-                    <Container className={`component-sizeChart`} initial="hidden" animate={isOpen ? "visible" : "hidden"} exit="exit" variants={coockieFade}>
+                {open && (
+                    <Container className={`component-sizeChart`} initial="hidden" animate={open ? "visible" : "hidden"} exit="exit" variants={sizeFade}>
                         <Content>
                             <Header>
                                 <h6 className="scto">Size Chart</h6>
-                                <Close onClick={onClick} />
+                                <Close onClick={close} />
                             </Header>
                             <img src={sizeChart} alt="Size guide" />
                         </Content>
@@ -47,6 +40,9 @@ const Container = styled(motion.section)`
     height: 100%;
     z-index: 99999;
     opacity: 0;
+    top: 0;
+    left: 0;
+    margin: 1rem;
 `;
 
 const Content = styled.section`
@@ -62,6 +58,12 @@ const Content = styled.section`
     img {
         padding: 2rem 6rem;
     }
+
+    @media only screen and (max-width: 784px) {
+        img {
+            padding: 0;
+        }
+    }
 `;
 
 const Header = styled.header`
@@ -75,5 +77,12 @@ const Header = styled.header`
         max-width: 64px;
         stroke: ${({ theme }) => theme.color.darkGray};
         cursor: pointer;
+    }
+
+    @media only screen and (max-width: 784px) {
+        margin-bottom: 2rem;
+        svg {
+            max-width: 24px;
+        }
     }
 `;

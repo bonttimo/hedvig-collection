@@ -35,24 +35,20 @@ const Bag = ({ ...props }) => {
                                     return (
                                         <Product key={item.id} variants={FadeInStagger}>
                                             <div className="content">
-                                                <h3>{item.title}</h3>
+                                                <h4>{item.title}</h4>
                                                 <Group className="fold">
                                                     <p>{item.variant.title}</p>
-                                                    {/* <p>{item.content}</p>
-                                                    <span>/</span>
-                                                    <p>{item.color}</p>
-                                                    <span>/</span>
-                                                    <p>{item.size}</p> */}
                                                 </Group>
                                                 <Group>
-                                                    <p>{item.variant.price.replace(/\.00$/, "")}€</p>
-                                                    <p>{item.quantity}x</p>
+                                                    <p>{item.variant.price.replace(/\.00$/, "")} € </p>
+                                                    <p> X </p>
+                                                    <p>{item.quantity}</p>
                                                 </Group>
                                                 <button
                                                     onClick={() => {
                                                         removeItemFromCheckout(item.id);
                                                     }}
-                                                    className="scto">
+                                                    className="scto uppercase">
                                                     Remove
                                                 </button>
                                             </div>
@@ -71,16 +67,16 @@ const Bag = ({ ...props }) => {
                         )}
                     </Products>
                     <footer>
-                        <p className="scto text-details">
-                            In total <span>{checkout.lineItems && checkout.lineItems.length > 0 ? checkout.totalPrice.replace(/\.00$/, "") : "0"}€</span>
+                        <p className="scto">
+                            In total <span>{checkout.lineItems && checkout.lineItems.length > 0 ? checkout.totalPrice.replace(/\.00$/, "") : "0"} €</span>
                         </p>
-                        <Link to="/cart" className="scto text-details">
+                        <Link to="/cart" className="scto">
                             Edit Bag →
                         </Link>
                     </footer>
                 </main>
 
-                <Button url={checkout.webUrl} text="Checkout →" color="darkGreen" bg="offWhite" style="fill" />
+                <Button url={checkout.webUrl} text="Checkout →" color="darkGray" bg="offWhite" style="fill" />
             </Content>
         </Container>
     );
@@ -107,6 +103,20 @@ const Container = styled.section`
     &.open {
         transform: translateX(0);
     }
+
+    header {
+        p {
+            font-size: var(--text-small);
+            font-family: var(--noeStandard);
+        }
+    }
+
+    p,
+    a,
+    button {
+        font-size: var(--text-smaller);
+        font-family: var(--scto);
+    }
 `;
 
 const Content = styled.section`
@@ -116,7 +126,8 @@ const Content = styled.section`
     width: 100%;
     padding: 2.5rem;
     margin-bottom: 2rem;
-    padding-top: ${({ currentPage, pages, offset }) => `${offset + 30}px`};
+    /* padding-top: ${({ currentPage, pages, offset }) => `${offset + 30}px`}; */
+    padding-top: 2rem;
     color: ${({ theme }) => theme.color.offWhite};
 
     header {
@@ -141,14 +152,17 @@ const Content = styled.section`
             margin-left: 1rem;
         }
         footer {
-            border-top: solid 1px ${({ theme }) => theme.color.offWhite};
+            border-top: solid 1px ${({ theme }) => theme.color.darkGray};
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 2rem;
-            margin-top: 2rem;
+            padding-top: 1rem;
+            margin-top: 1rem;
             text-transform: uppercase;
 
+            a {
+                color: ${({ theme }) => theme.color.offWhite};
+            }
             p {
                 span {
                     margin-left: 0.5rem;
@@ -187,6 +201,7 @@ const Products = styled(motion.section)`
     grid-template-columns: 1fr;
     grid-auto-rows: auto;
     gap: 2rem;
+    margin-bottom: 1rem;
 `;
 
 const Product = styled(motion.section)`
@@ -194,8 +209,8 @@ const Product = styled(motion.section)`
         display: flex;
         flex-direction: column;
     }
-    h3 {
-        margin-bottom: 0.3rem;
+    h4 {
+        margin-bottom: 0.5rem;
     }
     display: grid;
     grid-template-columns: 2fr 1fr;

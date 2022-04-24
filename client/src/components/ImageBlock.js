@@ -1,5 +1,6 @@
 import { Children } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 import { FadeIn } from "../FramerMotion";
@@ -10,8 +11,12 @@ const ImageBlockItem = ({ image = null, title = null, body = null, style = "cent
         <Item className={`component-imageBlockItem style-${style} ${body ? "has-content" : ""}`} color={color} bg={bg} initial="start" animate="end" variants={FadeIn}>
             {image && <img loading="lazy" src={image} alt="" />}
             <div className={`content ${image ? "content-absolute" : ""}`}>
-                {title && <h3>{title}</h3>}
-                {body && <p className="body text-large">{body}</p>}
+                {title && (
+                    <Link className="title" to={url}>
+                        <h3>{title}</h3>
+                    </Link>
+                )}
+                {body && <p className="body">{body}</p>}
                 {button && <Button url={url} text={button} color={color} />}
             </div>
         </Item>
@@ -25,7 +30,7 @@ const ImageBlock = ({ children, footer = null, bg = "offWhite", color = "offWhit
                 {children}
             </Content>
             {footer && (
-                <Footer className="text-details">
+                <Footer>
                     <h6 className="scto">{footer}</h6>
                 </Footer>
             )}
@@ -39,6 +44,17 @@ const Container = styled(motion.section)`
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    .title {
+        color: ${({ theme }) => theme.color.offWhite};
+        font-size: var(--text-huge);
+    }
+    button a {
+        font-size: var(--button);
+    }
+    p.body {
+        font-size: var(--text-huge);
+    }
 `;
 
 const Content = styled.section`
@@ -64,6 +80,7 @@ const Footer = styled.footer`
     align-items: center;
     background-color: ${({ theme }) => theme.color.offWhite};
     padding: 2rem;
+    text-transform: uppercase;
 `;
 
 const Item = styled(motion.section)`

@@ -36,19 +36,27 @@ export const GlobalStyles = createGlobalStyle`
 
 
 	:root {
-		--h1: 2rem;
-		--h2: 1.7rem;
-		--h3: 1.8rem;
-		--h4: 1.14rem;
-		--h5: 1rem;
-		--h6: 0.87rem; // 14px
-		--p: 0.87rem; // 14px
-		--a: 0.87rem; // 14px
-		--text-default: 1.1rem; // 18px
-		--text-large: 1.3rem;
-		--text-small: 0.87rem; // 14px
-		--text-details: 0.75rem; // 12px
+		--h1: 2rem; // 32px
+		--h2: 1.7rem; // 27.2px
+		--h3: 1.8125rem; // 29px
+		--h4: 1.125rem; // 18px
+		--h5: 1rem; // 16px
+		--h6: 0.75rem; // 12px
+
+		--text-huge: 1.8125rem; // 29px
+		--text-big: 1.375rem; // 22px
+		--text-medium: 1.125rem; // 18px
+		--text-normal: 1rem; // 16px
+		--text-small: 0.875rem; // 14px
+		--text-smaller: 0.75rem; // 12px
 		--text-tiny: 0.625rem; // 10px
+		--p: 1.125rem; // 18px
+		--a: 1.125rem; // 18px
+		--li: 1.125rem; // 18px
+		--button: 0.875rem; // 14px
+
+		--scto: SctoGroteskARegular; 
+		--noeStandard: NoeStandardLight; 
 
 		--maxWidth: 2400px;
 		--gutter: 6rem;
@@ -57,129 +65,79 @@ export const GlobalStyles = createGlobalStyle`
 	}
 
 	body{ font-family: "NoeStandardLight"; color: ${({ theme }) => theme.color.darkGray}; }
-	.scto{ font-family: SctoGroteskARegular; }
-	.noeStandard{ font-family: "NoeStandardLight"; }
+	.scto{ font-family: var(--scto); }
+	.noeStandard{ font-family: var(--noeStandard); }
 
-	h1, h2, h3, h4, h5, h6{ font-family: "NoeStandardLight"; }
-	h1, .h1 { font-size: var(--h1); }
-    h2, .h2 { font-size: var(--h2); }
-    h3, .h3 { font-size: var(--h3); }
-    h4, .h4 { font-size: var(--h4); }
-    h5, .h5 { font-size: var(--h5); }
-    h6, .h6 { font-size: var(--h6); font-family: SctoGroteskARegular;  }
-	p{ font-size: var(--p); line-height: 145%; }
-	a{ font-size: var(--a); font-family: "SctoGroteskARegular"; color: ${({ theme }) => theme.color.darkGray}; }
-    strong { font-weight: bolder; font-family: "SctoGroteskARegular"; }
+	h1, h2, h3, h4, h5, h6{ font-family: var(--noeStandard); }
+	h1, .h1 { font-size: var(--h1); font-family: var(--noeStandard);  }
+    h2, .h2 { font-size: var(--h2); font-family: var(--noeStandard);  }
+    h3, .h3 { font-size: var(--h3); font-family: var(--noeStandard);  }
+    h4, .h4 { font-size: var(--h4); font-family: var(--noeStandard);  }
+    h5, .h5 { font-size: var(--h5); font-family: var(--noeStandard);  }
+    h6, .h6 { font-size: var(--h6); font-family: var(--scto);  }
+	p{ font-size: var(--p); line-height: 155%; }
+	a{ font-size: var(--a); font-family: var(--scto); color: ${({ theme }) => theme.color.darkGray}; }
+	li{ font-size: var(--li); }
+    strong { font-weight: bolder; font-family: var(--scto); }
     em { font-style: italic; }
 	.uppercase{ text-transform: uppercase; }
 
 	.text-{
-		&large{
-			font-size: var(--text-large);
+		&huge{
+			font-size: var(--text-huge);
+		}
+		&big{
+			font-size: var(--text-big);
+		}
+		&medium{
+			font-size: var(--text-medium);
+		}
+		&normal{
+			font-size: var(--text-normal);
 		}
 		&small{
 			font-size: var(--text-small);
 		}
-		&details{
-			font-size: var(--text-details);
+		&smaller{
+			font-size: var(--text-smaller);
 		}
-		&default{
-			font-size: var(--text-default);
+		&tiny{
+			font-size: var(--text-tiny);
 		}
-	}
-
-	nav{
-		a, button{ font-size: var(--text-small); font-family: "SctoGroteskARegular"; }
-	}
-
-	footer{
-		a{ font-size: var(--p); color: ${({ theme }) => theme.color.offWhite}; font-family: "NoeStandardLight";  }
-		h6{ font-size: var(--text-details); font-family: SctoGroteskARegular; }
-		.copyright{ font-size: var(--text-details); }
 	}
 
 	.page-{
-		&privacy-policy{
-			p{ font-size: var(--text-large); }
-		}
-		&product{
-			.product-status{
-				p, a{ font-size: var(--text-details); font-family: "SctoGroteskARegular"; } 
-			}
-		}
-		&cart{
-			p, a, span{ font-family: "SctoGroteskARegular"; }
-		}
 		&about{
-			.intro{
-				p{ font-size: var(--text-large); line-height: 190%; }
-			}
-			.item{
-				p{ font-size: var(--text-default); }
-			}
 			@media only screen and (max-width: 1000px) {
 				main{
 					grid-template-columns: 1fr;
 					.intro{
 						grid-column: 1;
-						p{ font-size: var(--text-default); line-height: 190%; }
 					}
 				}
 			}
 		}
-		&privacy-policy{
-			main{
-				h6{ font-size: var(--text-details); }
-				p, a{ font-size: var(--text-default); }
-			}
-		}
 	}
 
-	.component-{
-		&product{
-			p, a{ font-size: var(--text-details); font-family: "SctoGroteskARegular"; } 
-		}
-		&bag{
-			.products{
-				p, a, span{ font-size: var(--text-details); font-family: "SctoGroteskARegular"; }
-			}
-		}
-		&imageBlock{
-			button a{ font-size: 0.87rem; }
-		}
-		&imageBlockItem{
-			p{ font-size: 1.8rem; }
-			button a{ font-size: 0.87rem; }
-		}
-		&newsletterAndContact{
-			.newsletter{
-				button{
-					font-size: var(--text-tiny);
-				}
-			}
-		}
-	}
-
-	img, svg{
-		width: 100%;
-		max-width: 100%;
-		height: auto;
-	}
-	button, a{
-		cursor: pointer;
-	}
+	img, svg{ width: 100%; max-width: 100%; height: auto; }
+	button, a{ cursor: pointer; }
+	button{ cursor: pointer; letter-spacing: 1px; font-size: var(--button); font-family: var(--scto); }
 
 	@media only screen and (max-width: 900px) {
 		:root {
+			--h3: 1.25rem; // 20px
+			--h6: 0.625rem; // 10px
+			--p: 0.875rem; // 14px
+			--a: 0.875rem; // 14px
+			--li: 0.875rem; // 14px
+
+			--text-huge: 1.25rem; // 20px
+			--text-medium: 1rem; // 16px
+
+			--button: 0.625rem; // 10px
+
 			--gutter: 2rem;
 			--offsetTop: 2rem;
-			--p: 0.85rem;
-			--a: 0.85rem;
-			--h5: 0.85rem;
 		}
-	}
-
-	@media only screen and (max-width: 784px) {
-		
 	}
 `;

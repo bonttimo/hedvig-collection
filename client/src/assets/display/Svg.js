@@ -1,4 +1,4 @@
-const Logo = ({ onClick }) => {
+export const Logo = ({ onClick }) => {
     return (
         <div onClick={onClick}>
             <svg viewBox="0 0 211 34" xmlns="http://www.w3.org/2000/svg">
@@ -8,7 +8,7 @@ const Logo = ({ onClick }) => {
     );
 };
 
-const Close = ({ onClick }) => {
+export const Close = ({ onClick }) => {
     return (
         <svg onClick={onClick} viewBox="0 0 55 54" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="m1.354.646 52.999 53M53.646.646l-53 53" />
@@ -16,4 +16,18 @@ const Close = ({ onClick }) => {
     );
 };
 
-export { Logo, Close };
+export const ArrowRight = ({ onClick }) => {
+    return (
+        <svg viewBox="0 0 70 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path stroke="#5C5C5C" d="m.354.646 69 69M.354 139.354l69-69" />
+        </svg>
+    );
+};
+
+export const ArrowLeft = ({ onClick }) => {
+    return (
+        <svg viewBox="0 0 70 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path stroke="#5C5C5C" d="m69.646.646-69 69M69.646 139.354l-69-69" />
+        </svg>
+    );
+};

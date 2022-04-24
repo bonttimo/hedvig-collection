@@ -16,11 +16,14 @@ import { getSizes, getColors, arrayIsEqual } from "../functions/product";
 import Button from "../components/Button";
 import { getSingleProduct, getRandomProducts } from "../ShopifyQueries.js";
 
+import SizeChart from "../components/SizeChart";
+
 const Product = () => {
     let { id } = useParams();
-    const { addItemToCeckout, checkout } = useContext(BagContext);
+    const { addItemToCeckout } = useContext(BagContext);
     const [product, setProduct] = useState(null);
     const [hasLoaded, setHasLoaded] = useState(false);
+    const [showSizeChart, setShowSizeChart] = useState(false);
 
     const [error, setError] = useState();
 
@@ -103,7 +106,7 @@ const Product = () => {
         if (selectedColor && selectedSize) {
             setSelectedProduct(selectCorrectProductVariant([selectedSize, selectedColor]));
         }
-    }, [product, relatedProducts, productVariants, selectedSize, selectedColor]);
+    }, [product, relatedProducts, productVariants, selectedSize, selectedColor, showSizeChart]);
 
     useEffect(() => {
         let timeout;
@@ -123,6 +126,8 @@ const Product = () => {
     };
 
     const selectColor = (color) => {
+        setSelectedSize(null);
+        setSelectedProduct(null);
         setSelectedColor(color.target.dataset.color);
     };
 
@@ -132,10 +137,11 @@ const Product = () => {
         } else {
             setError("There was an errror adding the item to your cart. Please try again later.");
         }
-        console.log("Add");
     };
+
     return (
         <Container className="page-product" initial="enter" animate="animate" exit="exit" variants={pageTransition}>
+            <SizeChart open={showSizeChart} close={() => setShowSizeChart(!showSizeChart)} />
             <AnimatePresence key="error">
                 {error && (
                     <Error onClick={() => setError(null)} initial="hidden" animate={error !== null ? "visible" : "hidden"} exit="exit" variants={fadeInOut}>
@@ -153,12 +159,14 @@ const Product = () => {
                                 slidesPerView={1}
                                 autoHeight={true}
                                 navigation
+                                observer
+                                observeParents
                                 pagination={{ clickable: true, type: "progressbar", el: ".gallery-pagination" }}
                                 scrollbar={{ draggable: true }}
                                 onSwiper={(swiper) => {
                                     swiper.updateAutoHeight(800);
                                 }}
-                                onSlideChange={() => console.log("slide change")}>
+                                onSlideChange={() => console.log("")}>
                                 {product.images.map((image, index) => (
                                     <SwiperSlide key={index}>
                                         <img src={image.src} alt={image.altText} />
@@ -173,23 +181,23 @@ const Product = () => {
                             <div className="gallery-pagination"></div>
                         </Gallery>
                         <ProductDetails>
-                            <Group>
-                                <h2>{product.title}</h2>
+                            <Group className="productDetails">
+                                <h1>{product.title}</h1>
                                 <Row>
-                                    <p className="material">{product.metafields[0].value}</p>
-                                    <span>|</span>
-                                    <p className="price">{product.variants[0].price.replace(/\.00$/, "")} €</p>
+                                    <p className="material uppercase scto">{product.metafields[0].value}</p>
+                                    <span className="uppercase scto">|</span>
+                                    <p className="price uppercase scto">{product.variants[0].price.replace(/\.00$/, "")} €</p>
                                 </Row>
                             </Group>
                             <Group>
-                                <Sizes>
-                                    <p>
-                                        Sizes available (EU) <button>Size quide →</button>
+                                <Sizes className="size">
+                                    <p className="scto">
+                                        Sizes available (EU) <button onClick={() => setShowSizeChart(!showSizeChart)}>Size quide →</button>
                                     </p>
                                     <ul>
                                         {Object.values(getSizes(showCorrectVariant(productVariants, { type: "Color", value: selectedColor }))).map(({ value, qty }, index) => (
                                             <li key={index} className={`${qty <= 0 ? "soldOut" : "available"} ${value === selectedSize ? "selected" : ""}`} onClick={() => (qty > 0 ? selectSize(value) : "")} data-size={value}>
-                                                <p onClick={() => (qty > 0 ? selectSize(value) : "")} data-size={value}>
+                                                <p className="scto" onClick={() => (qty > 0 ? selectSize(value) : "")} data-size={value}>
                                                     {value}
                                                 </p>
                                             </li>
@@ -198,8 +206,8 @@ const Product = () => {
                                 </Sizes>
                             </Group>
                             <Group>
-                                <Colors>
-                                    <p>Colours available</p>
+                                <Colors className="color">
+                                    <p className="scto">Colours available</p>
                                     <Row>
                                         {Object.values(getColors(product.variants)).map(({ value, qty, name }, index) => (
                                             <div key={index} onClick={selectColor} className={selectedColor === name ? "selected" : ""} style={{ backgroundColor: value }} data-color={name}></div>
@@ -207,15 +215,17 @@ const Product = () => {
                                     </Row>
                                 </Colors>
                             </Group>
-                            <Group>
-                                <Button url="#" text="Add to bag →" disabled={selectedProduct === null ? true : false} color="white" bg="lightBlue" style="fill" onClick={addItem} />
+                            <Group className="buy">
+                                <Button url="#" text="Add to bag →" disabled={selectedProduct === null ? true : false} color="white" bg="blue" style="fill" onClick={addItem} />
                                 {/* <Button url="#" text="Preorder" color="gray" bg="gray" style="outline" /> */}
                             </Group>
-                            <Group className="productInfo" dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}></Group>
+                            <Group className="productInfo">
+                                <div className="shopify-description" dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}></div>
+                            </Group>
                         </ProductDetails>
                     </Content>
-                    <RelatedProducts initial="start" animate="end" variants={FadeInStagger}>
-                        <h2 className="scto">Related products</h2>
+                    <RelatedProducts className="related-products" initial="start" animate="end" variants={FadeInStagger}>
+                        <h2 className="scto uppercase">You may also like</h2>
                         {relatedProducts !== null ? (
                             <div className="products">
                                 {relatedProducts.map((product, index) => (
@@ -245,6 +255,65 @@ const Container = styled(motion.section)`
     position: relative;
     min-height: 100vh;
     width: 100%;
+
+    h1 {
+        font-size: var(--h3);
+    }
+
+    .productDetails {
+        p,
+        span {
+            font-size: var(--text-smaller);
+        }
+    }
+
+    .size,
+    .color {
+        p,
+        li,
+        a,
+        button {
+            font-size: var(--text-smaller);
+        }
+    }
+
+    .buy {
+        button a {
+            font-size: var(--text-smaller);
+        }
+    }
+
+    .productInfo {
+        p {
+            font-size: var(--text-medium);
+        }
+    }
+
+    .related-products {
+        h2,
+        p {
+            font-size: var(--text-small);
+        }
+        p {
+            font-family: var(--noeStandard);
+        }
+    }
+
+    @media only screen and (max-width: 900px) {
+        .productInfo {
+            p,
+            ul,
+            li {
+                font-size: var(--text-medium);
+            }
+        }
+
+        .related-products {
+            h2 {
+                font-size: var(--text-tiny);
+            }
+        }
+    }
 `;
 
 const Content = styled.section`
@@ -300,21 +369,38 @@ const Gallery = styled(motion.section)`
         height: auto;
     }
     .gallery-pagination {
-        height: 4px;
-        margin: 1rem auto 0 auto;
+        height: 3px;
+        margin: 1rem 0 0 auto;
         width: 75%;
         position: relative;
         background-color: ${({ theme }) => theme.color.gray};
         .swiper-pagination-progressbar-fill {
             background-color: ${({ theme }) => theme.color.darkGray};
         }
+        @media only screen and (max-width: 784px) {
+            margin: 1rem auto 0 auto;
+        }
     }
 
     .swiper-button-prev,
     .swiper-button-next {
+        background-repeat: no-repeat;
+        width: 50px;
+        height: 100px;
+        top: calc(50% - 25px);
         &:after {
             color: ${({ theme }) => theme.color.black};
+            display: none;
         }
+    }
+
+    .swiper-button-next {
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 70 140' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%235C5C5C' d='m.354.646 69 69M.354 139.354l69-69' /%3E%3C/svg%3E");
+        right: 20px;
+    }
+    .swiper-button-prev {
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 70 140' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%235C5C5C' d='m69.646.646-69 69M69.646 139.354l-69-69' /%3E%3C/svg%3E");
+        left: 20px;
     }
 
     @media only screen and (max-width: 784px) {
@@ -331,11 +417,21 @@ const ProductDetails = styled.section`
     margin-top: 100px;
     padding: 0 var(--gutter);
 
+    h1 {
+        margin-bottom: 0.6rem;
+    }
+
+    .buy {
+        margin: 1rem 0;
+    }
     .productInfo {
+        h6 {
+            margin-bottom: 0.6rem;
+        }
         ul {
             list-style: disc;
             li {
-                margin-bottom: 1rem;
+                margin-bottom: 0.5rem;
             }
         }
     }
@@ -361,6 +457,8 @@ const Group = styled.section`
 
 const Row = styled.section`
     display: flex;
+    align-items: center;
+    align-items: baseline;
 
     * {
         margin-right: 1rem;
@@ -400,6 +498,9 @@ const Sizes = styled.section`
     grid-auto-rows: auto;
     gap: 0.5rem;
 
+    button {
+        color: ${({ theme }) => theme.color.darkGray};
+    }
     p a {
         margin-left: 0.5rem;
     }
@@ -476,7 +577,7 @@ const RelatedProducts = styled(motion.section)`
     height: auto;
 
     h2 {
-        margin-bottom: 5rem;
+        margin-bottom: 3rem;
     }
     .products {
         display: grid;

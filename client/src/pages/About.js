@@ -12,11 +12,11 @@ const About = () => {
             <Content>
                 <Aside>
                     <Links className="desktop">
-                        <h6 className="text-details scto">Contact</h6>
-                        <a className="h4 noeStandard" href="mailto:info@hedvigcollection.com" target="_blank" rel="noreferrer">
+                        <h6 className="scto">Contact</h6>
+                        <a className="noeStandard" href="mailto:info@hedvigcollection.com" target="_blank" rel="noreferrer">
                             info@hedvigcollection.com
                         </a>
-                        <a className="h4 noeStandard" href="https://www.instagram.com/hedvigcollection">
+                        <a className="noeStandard" href="https://www.instagram.com/hedvigcollection">
                             Instagram
                         </a>
                     </Links>
@@ -37,15 +37,15 @@ const About = () => {
                 <Main>
                     <Links className="mobile">
                         <h6>Contact</h6>
-                        <a className="h3 noeStandard" href="mailto:info@hedvigcollection.com">
+                        <a className="noeStandard" href="mailto:info@hedvigcollection.com">
                             info@hedvigcollection.com
                         </a>
-                        <a className="h3 noeStandard" href="https://www.instagram.com/hedvigcollection" target="_blank" rel="noreferrer">
+                        <a className="noeStandard" href="https://www.instagram.com/hedvigcollection" target="_blank" rel="noreferrer">
                             Instagram
                         </a>
                     </Links>
                     <div className="intro">
-                        <h6 className="text-details scto">Fragments of Short Stories</h6>
+                        <h6 className="scto">Fragments of Short Stories</h6>
                         <p>
                             <strong>SOFIA JÄRNEFELT</strong> and <strong>TARU LAHTI</strong> met when working together in a team under a Swedish creative director. Together they learned to carefully prepare ideas and implement them as coherent products. During this shared experience they found a mutual perception of beauty, and a passion for extraordinary fabrics, sophisticated aesthetics, and peculiar stories. They became friends. Or more like sisters – the kind that complete each others' sentences and feel confident and safe to express opposing opinions to each other.
                         </p>
@@ -75,6 +75,33 @@ const Container = styled(motion.section)`
     display: flex;
     flex-direction: column;
     margin-top: var(--offsetTop);
+
+    aside {
+        a {
+            font-size: var(--text-medium);
+        }
+    }
+
+    .intro {
+        p {
+            font-size: var(--text-big);
+        }
+    }
+
+    @media only screen and (max-width: 900px) {
+        h6 {
+            font-size: 0.75rem;
+        }
+        a {
+            font-size: var(--text-huge);
+        }
+
+        .intro {
+            p {
+                font-size: var(--text-huge);
+            }
+        }
+    }
 `;
 
 const Content = styled.section`
