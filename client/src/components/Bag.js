@@ -62,7 +62,7 @@ const Bag = ({ ...props }) => {
                         ) : (
                             <Empty>
                                 <p>Your bag is empty</p>
-                                <Button url="/shop" text="Shop now →" color="darkGreen" bg="offWhite" style="fill" />
+                                <Button url="/shop" text="Shop now →" color="darkGreen" bg="offWhite" style="fill" internal={true} />
                             </Empty>
                         )}
                     </Products>
@@ -76,7 +76,7 @@ const Bag = ({ ...props }) => {
                     </footer>
                 </main>
 
-                <Button url={checkout.webUrl} text="Checkout →" color="darkGray" bg="offWhite" style="fill" />
+                <Button url={checkout.webUrl} text="Checkout →" color="darkGray" bg="offWhite" style="fill" internal={false} />
             </Content>
         </Container>
     );
@@ -135,8 +135,8 @@ const Content = styled.section`
         justify-content: space-between;
         align-items: center;
         svg {
-            width: 64px;
-            height: 64px;
+            width: 56px;
+            height: 56px;
             cursor: pointer;
             stroke: ${({ theme }) => theme.color.offWhite};
         }

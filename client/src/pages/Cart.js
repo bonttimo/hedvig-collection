@@ -20,9 +20,6 @@ const Cart = () => {
                     {checkout.lineItems && checkout.lineItems.length > 0 ? (
                         <>
                             {checkout.lineItems.map((item) => {
-                                {
-                                    console.log(item);
-                                }
                                 return (
                                     <Product key={item.id} variants={FadeInStagger}>
                                         <div className="content">
@@ -51,7 +48,7 @@ const Cart = () => {
                         </>
                     ) : (
                         <Empty>
-                            <Button url="/shop" text="Shop now →" color="darkGreen" bg="offWhite" style="fill" />
+                            <Button url="/shop" text="Shop now →" color="darkGreen" bg="offWhite" style="fill" internal={true} />
                             <p>Your bag is empty</p>
                         </Empty>
                     )}
@@ -68,7 +65,8 @@ const Cart = () => {
                     </Group> */}
                     <Group>
                         <p>Sales Tax</p>
-                        <p>{checkout.lineItems && checkout.lineItems.length > 0 ? checkout.totalTax.replace(/\.00$/, "") : "0"} €</p>
+                        {/* <p>{checkout.lineItems && checkout.lineItems.length > 0 ? checkout.totalTax.replace(/\.00$/, "") : "0"} €</p> */}
+                        <p>Included in product price</p>
                     </Group>
                 </Shipping>
                 <Total>
@@ -77,7 +75,7 @@ const Cart = () => {
                         <p>{checkout.lineItems && checkout.lineItems.length > 0 ? checkout.totalPrice.replace(/\.00$/, "") : "0"} €</p>
                     </Group>
                 </Total>
-                <Button url={checkout.webUrl} text="Checkout →" color="darkGray" bg="darkGray" style="outline" />
+                <Button url={checkout.webUrl} text="Checkout →" color="darkGray" bg="darkGray" style="outline" internal={false} />
             </Content>
         </Container>
     );
@@ -87,7 +85,7 @@ export default Cart;
 
 const Container = styled(motion.section)`
     position: relative;
-    min-height: 100vh;
+    /* min-height: 60vh; */
     width: 100%;
 
     header {

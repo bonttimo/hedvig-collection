@@ -1,8 +1,5 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-
-import image from "../assets/display/Hedvig-2021_82.jpg";
 
 import { pageTransition } from "../FramerMotion";
 
@@ -51,7 +48,7 @@ const About = () => {
                         </p>
                     </div>
                     <div className="item">
-                        <p>HEDVIG was founded by Sofia and Taru in 2021 and is based in Helsinki. It all started as Sofia’s art project inspired by both of her grandmothers' backgrounds: one from the Russian court of the Tsarists period, the other a woman from the rugged cliffs of the outer archipelago of Åland. The peculiar stories from her family’s history turned out to be an intriguing visual story to tell and build upon. </p>
+                        <p>HEDVIG was founded by Sofia and Taru in 2021 and is based in Helsinki. It all started as Sofia’s art project inspired by both of her grandmothers' backgrounds: one a baroness from a prestigious family, the other a woman from the rugged cliffs of the outer archipelago of Åland. The peculiar stories from her family’s history turned out to be an intriguing visual story to tell and build upon. </p>
 
                         <p>When our creative director’s grandmother and grandfather met for the first time it was in 1928 at a ball in the House of Nobility. Their names were Irma and Gustaf. Others told Irma not to talk to Gustaf, saying he was a crazy scientist, a lunatic astronomer who believed one day man would fly to the moon. “He believes man will fly to the moon? How fascinating!”, Irma sighed and walked up to Gustaf. </p>
                         <p>They lived in the observatory. And in their home there was a ghost, an old professor who used to live there before them. They thought he was in love with their daughter, a young woman at the time, because the perfume bottles in her room used to fall when she wasn’t there.</p>
@@ -86,6 +83,16 @@ const Container = styled(motion.section)`
         p {
             font-size: var(--text-big);
         }
+        p,
+        a {
+            font-family: var(--noeStandard);
+        }
+    }
+
+    main {
+        p {
+            font-family: var(--scto);
+        }
     }
 
     @media only screen and (max-width: 900px) {
@@ -111,7 +118,7 @@ const Content = styled.section`
     grid-template-columns: 1fr 2fr;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 4rem;
+    margin-bottom: 9rem;
 
     @media only screen and (max-width: 784px) {
         grid-template-columns: 1fr;
@@ -172,19 +179,20 @@ const Main = styled.main`
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-auto-rows: auto;
-    column-gap: 3rem;
+    column-gap: 7rem;
 
     .intro {
         grid-column: 1/3;
-        margin-bottom: 2rem;
+        margin-bottom: 2.5rem;
     }
     h6 {
         margin-bottom: 0.6rem;
+        text-transform: uppercase;
     }
     p {
         position: relative;
         display: block;
-        margin-bottom: 3rem;
+        margin-bottom: 1.5rem;
     }
 
     @media only screen and (max-width: 784px) {

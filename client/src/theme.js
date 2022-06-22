@@ -8,7 +8,8 @@ export const theme = {
         lightGray: "#E5E5E5",
         randomGray: "#C4C4C4",
         nude: "#ddd6c9",
-        darkPurple: "#492C3D",
+        darkPurple: "#23121b",
+        //darkPurple: "#492C3D",  OLD
         green: "#ADA942",
         lightGreen: "#828282",
         darkGreen: "#2B3230",

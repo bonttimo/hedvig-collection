@@ -1,10 +1,11 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-const Button = ({ url, text, color = "offWhite", bg = "transparent", style = "default", onClick = null, disabled = false }) => {
+const Button = ({ url, text, color = "offWhite", bg = "transparent", style = "default", onClick = null, disabled = false, internal = true }) => {
     return (
         <Container onClick={onClick} disabled={disabled} className={`button style-${style}`} color={color} bg={bg}>
             <span></span>
-            <a href={url}>{text}</a>
+            {internal ? <Link to={url}>{text}</Link> : <a href={url}>{text}</a>}
         </Container>
     );
 };
@@ -15,6 +16,7 @@ const Container = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0;
 
     a {
         margin-left: 0.7rem;
@@ -35,7 +37,7 @@ const Container = styled.button`
                 margin-left: 0;
                 width: 100%;
                 text-align: center;
-                padding: 1.5rem 3rem;
+                padding: 1.3rem 3rem;
                 background-color: ${({ theme, bg }) => theme.color[bg]};
             }
             span {

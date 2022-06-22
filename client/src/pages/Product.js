@@ -113,7 +113,6 @@ const Product = () => {
         if (error !== null) {
             timeout = setTimeout(() => {
                 setError(null);
-                console.log("NIW");
             }, 4000);
         }
         return () => {
@@ -158,6 +157,7 @@ const Product = () => {
                                 spaceBetween={0}
                                 slidesPerView={1}
                                 autoHeight={true}
+                                loop={true}
                                 navigation
                                 observer
                                 observeParents
@@ -165,26 +165,25 @@ const Product = () => {
                                 scrollbar={{ draggable: true }}
                                 onSwiper={(swiper) => {
                                     swiper.updateAutoHeight(800);
-                                }}
-                                onSlideChange={() => console.log("")}>
+                                }}>
                                 {product.images.map((image, index) => (
                                     <SwiperSlide key={index}>
-                                        <img src={image.src} alt={image.altText} />
+                                        <img src={image.url} alt={image.altText} />
                                     </SwiperSlide>
                                 ))}
                             </Swiper>
 
                             <ProductStatus className="product-status">
-                                {/* <Preorder>Pre order</Preorder> */}
+                                {product.metafields.find((field) => field.key === "preOrder")?.value === true && <Preorder>Pre order</Preorder>}
                                 {!product.availableForSale && <SoldOut>Sold Out</SoldOut>}
                             </ProductStatus>
                             <div className="gallery-pagination"></div>
                         </Gallery>
                         <ProductDetails>
                             <Group className="productDetails">
-                                <h1>{product.title}</h1>
+                                <h1>{product.metafields.filter((field) => field.key === "displayTitle")[0].value}</h1>
                                 <Row>
-                                    <p className="material uppercase scto">{product.metafields[0].value}</p>
+                                    <p className="material uppercase scto">{product.metafields.filter((field) => field.key === "subtitle")[0].value}</p>
                                     <span className="uppercase scto">|</span>
                                     <p className="price uppercase scto">{product.variants[0].price.replace(/\.00$/, "")} €</p>
                                 </Row>
@@ -216,7 +215,7 @@ const Product = () => {
                                 </Colors>
                             </Group>
                             <Group className="buy">
-                                <Button url="#" text="Add to bag →" disabled={selectedProduct === null ? true : false} color="white" bg="blue" style="fill" onClick={addItem} />
+                                <Button url="#" text="Add to bag →" disabled={selectedProduct === null ? true : false} color="white" bg="blue" style="fill" onClick={addItem} internal={false} />
                                 {/* <Button url="#" text="Preorder" color="gray" bg="gray" style="outline" /> */}
                             </Group>
                             <Group className="productInfo">
@@ -230,7 +229,7 @@ const Product = () => {
                             <div className="products">
                                 {relatedProducts.map((product, index) => (
                                     <Link className="product" to={`/product/${product.handle}`} key={index}>
-                                        <motion.img loading="lazy" src={product.images[0].src} alt="" variants={FadeInStagger} />
+                                        <motion.img loading="lazy" src={product.images[0].url} alt={product.images[0].altText} variants={FadeInStagger} />
                                         <p>{product.title}</p>
                                     </Link>
                                 ))}
@@ -301,6 +300,10 @@ const Container = styled(motion.section)`
 
     @media only screen and (max-width: 900px) {
         .productInfo {
+            h6 {
+                font-size: var(--text-smaller);
+            }
+
             p,
             ul,
             li {
@@ -322,7 +325,7 @@ const Content = styled.section`
     grid-auto-rows: auto;
     max-width: var(--maxWidth);
     margin: 0 auto;
-    gap: 7rem;
+    gap: 3rem;
 
     .button {
         width: 100%;
@@ -351,14 +354,16 @@ const Gallery = styled(motion.section)`
     display: block;
     overflow: hidden;
     cursor: grab;
-    max-width: 40vw;
+    max-width: 50vw;
+    width: 50vw;
+    width: 100%;
     &:active {
         cursor: grabbing;
     }
     img {
         object-fit: cover;
         height: auto;
-        max-height: 85vh;
+        max-height: 100%;
         width: 100%;
     }
     .swiper-slide {
@@ -369,9 +374,9 @@ const Gallery = styled(motion.section)`
         height: auto;
     }
     .gallery-pagination {
-        height: 3px;
-        margin: 1rem 0 0 auto;
-        width: 75%;
+        height: 2px;
+        margin: 2rem 0 0 auto;
+        width: calc(100% - var(--gutter));
         position: relative;
         background-color: ${({ theme }) => theme.color.gray};
         .swiper-pagination-progressbar-fill {
@@ -385,9 +390,11 @@ const Gallery = styled(motion.section)`
     .swiper-button-prev,
     .swiper-button-next {
         background-repeat: no-repeat;
+        background-position: center;
         width: 50px;
-        height: 100px;
-        top: calc(50% - 25px);
+        height: 100%;
+        top: 0;
+        /* top: calc(50% - 25px); */
         &:after {
             color: ${({ theme }) => theme.color.black};
             display: none;
@@ -414,8 +421,8 @@ const ProductDetails = styled.section`
     grid-auto-rows: min-content;
     align-items: start;
     gap: 2rem;
-    margin-top: 100px;
-    padding: 0 var(--gutter);
+    margin-top: 125px;
+    padding: 0 4.3rem;
 
     h1 {
         margin-bottom: 0.6rem;
@@ -425,11 +432,13 @@ const ProductDetails = styled.section`
         margin: 1rem 0;
     }
     .productInfo {
+        max-width: 550px;
         h6 {
             margin-bottom: 0.6rem;
         }
         ul {
             list-style: disc;
+            margin-left: 1rem;
             li {
                 margin-bottom: 0.5rem;
             }
@@ -437,10 +446,10 @@ const ProductDetails = styled.section`
     }
 
     @media only screen and (max-width: 1524px) {
-        padding: 0 3rem;
+        padding: 0 var(--gutter);
     }
     @media only screen and (max-width: 1224px) {
-        padding: 0 3rem;
+        padding: 0 var(--gutter);
         margin-top: 24px;
     }
     @media only screen and (max-width: 784px) {
@@ -481,6 +490,8 @@ const ProductStatus = styled.section`
 `;
 
 const SoldOut = styled.p`
+    font-family: var(--scto);
+    font-size: var(--text-smaller);
     padding: 1rem 2rem;
     background-color: ${({ theme }) => theme.color.darkGreen};
     color: ${({ theme }) => theme.color.offWhite};
@@ -488,6 +499,8 @@ const SoldOut = styled.p`
 `;
 
 const Preorder = styled.p`
+    font-family: var(--scto);
+    font-size: var(--text-smaller);
     padding: 1rem;
     margin: 0 auto 0 0;
 `;
@@ -500,6 +513,7 @@ const Sizes = styled.section`
 
     button {
         color: ${({ theme }) => theme.color.darkGray};
+        text-transform: uppercase;
     }
     p a {
         margin-left: 0.5rem;
@@ -507,6 +521,7 @@ const Sizes = styled.section`
     ul {
         display: flex;
         list-style: none;
+        text-transform: uppercase;
     }
     li {
         transition: all ease-out 300ms;
@@ -572,8 +587,7 @@ const RelatedProducts = styled(motion.section)`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 8rem var(--gutter);
-    height: 400px;
+    padding: 8rem var(--gutter) 4rem var(--gutter);
     height: auto;
 
     h2 {
@@ -583,11 +597,12 @@ const RelatedProducts = styled(motion.section)`
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         grid-template-rows: auto;
-        gap: 5rem;
+        gap: 6.5rem;
 
         img {
-            max-width: 400px;
+            max-width: 300px;
             height: 100%;
+            object-fit: cover;
         }
         .product {
             display: flex;
@@ -608,7 +623,7 @@ const RelatedProducts = styled(motion.section)`
             grid-template-columns: 1fr;
             gap: 2rem;
             img {
-                max-width: 100%;
+                max-width: 250px;
             }
             .product {
                 p {

@@ -17,12 +17,62 @@ import Cart from "./pages/Cart";
 import About from "./pages/About";
 import PrivacyPolicy from "./pages/Privacy-policy";
 
+// import designOverlay from "./functions/designOverlay";
+
+// import shopImg from "./shop.jpg";
+// import frontpage from "./frontpage.jpg";
+// import product from "./product.jpg";
+// import product2 from "./product2.jpg";
+// import about from "./about.jpg";
+// import policy from "./policy.jpg";
+// import cart from "./cart.jpg";
+
 const App = () => {
     const location = useLocation();
 
     useEffect(() => {
-        console.log("rendered");
+        // console.log("rendered");
     });
+
+    // useEffect(() => {
+    //     const _designOverlay = new designOverlay({
+    //         initial: {
+    //             active: false,
+    //             initial: "hidden",
+    //             opacity: 0.6,
+    //             fullWidth: false,
+    //         },
+    //         backgroundColor: "#000",
+    //         maxWidth: "1728px",
+    //         images: [
+    //             {
+    //                 url: "/",
+    //                 image: frontpage,
+    //             },
+    //             {
+    //                 url: "/shop",
+    //                 image: shopImg,
+    //             },
+    //             {
+    //                 url: "/product*",
+    //                 image: product,
+    //             },
+    //             {
+    //                 url: "/about",
+    //                 image: about,
+    //             },
+    //             {
+    //                 url: "/cart",
+    //                 image: cart,
+    //             },
+    //             {
+    //                 url: "/privacy*",
+    //                 image: policy,
+    //             },
+    //         ],
+    //     });
+    //     return () => _designOverlay.destroy();
+    // }, [location]);
 
     return (
         <ThemeProvider theme={theme}>

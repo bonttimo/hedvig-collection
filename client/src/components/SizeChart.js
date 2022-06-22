@@ -24,7 +24,7 @@ const SizeChart = ({ open, close }) => {
                 )}
             </AnimatePresence>
         </>,
-        document.getElementById("root"),
+        document.getElementById("portal"),
     );
 };
 
@@ -42,7 +42,37 @@ const Container = styled(motion.section)`
     opacity: 0;
     top: 0;
     left: 0;
-    margin: 1rem;
+    padding: 1rem;
+    overflow-y: auto;
+
+    &::before {
+        display: block;
+        height: 100%;
+        width: 5vw;
+        position: fixed;
+        background: linear-gradient(90deg, rgba(255, 255, 255, 0.8), transparent);
+        z-index: 10;
+        top: 0;
+        left: 0;
+    }
+
+    &::after {
+        display: block;
+        height: 100%;
+        width: 5vw;
+        position: fixed;
+        background: linear-gradient(-90deg, rgba(255, 255, 255, 0.8), transparent);
+        top: 0;
+        right: 0;
+    }
+
+    @media only screen and (max-width: 784px) {
+        align-items: flex-start;
+        &::after,
+        &::before {
+            content: "";
+        }
+    }
 `;
 
 const Content = styled.section`
@@ -57,9 +87,22 @@ const Content = styled.section`
 
     img {
         padding: 2rem 6rem;
+
+        /* min-width: calc(100% - 10vw); */
+        /* max-height: 80vh; */
+        height: auto;
+        margin: 0 5vw;
+        object-fit: contain;
+        user-select: none;
+        min-width: 60vh;
+        max-width: 1400px;
     }
 
     @media only screen and (max-width: 784px) {
+        width: 100%;
+        overflow-x: auto;
+        margin: 1rem 0;
+        align-items: flex-start;
         img {
             padding: 0;
         }
@@ -67,6 +110,7 @@ const Content = styled.section`
 `;
 
 const Header = styled.header`
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -83,6 +127,8 @@ const Header = styled.header`
         margin-bottom: 2rem;
         svg {
             max-width: 24px;
+            position: fixed;
+            right: 40px;
         }
     }
 `;

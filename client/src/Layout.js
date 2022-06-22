@@ -2,7 +2,6 @@ import { useLayoutEffect, useState } from "react";
 import styled from "styled-components";
 import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-
 import { pageTransition } from "./FramerMotion";
 
 import Navigation from "./components/Navigation";
@@ -11,17 +10,20 @@ import Bag from "./components/Bag";
 import Coockes from "./components/Coockes";
 
 const Layout = ({ children }) => {
+    const isProduction = process.env.NODE_ENV === "production";
+
     const location = useLocation();
     const pages = ["/", "product"];
     const [offset, setOffset] = useState(null);
 
-    const onAnimationComplete = () => {
+    const onAnimationComplete = (type) => {
         // if (location.hash === "") window.scrollTo({ top: 0, behavior: "smooth" });
-        console.log("Animation complete");
+        // console.log("Animation complete");
+        if (location.hash === "" && type === "exit") window.scrollTo({ top: 0 });
     };
 
     useLayoutEffect(() => {
-        if (location.hash === "") window.scrollTo({ top: 0, behavior: "smooth" });
+        // if (location.hash === "") window.scrollTo({ top: 0, behavior: "smooth" });
         setOffset(document.querySelector(".mainMenu").getBoundingClientRect().height);
     }, [location.pathname]);
 
@@ -36,7 +38,10 @@ const Layout = ({ children }) => {
         };
     };
 
-    const debounceFunc = debounce(() => setOffset(document.querySelector(".mainMenu").getBoundingClientRect().height), 200);
+    const debounceFunc = debounce(() => {
+        const mainMenu = document.querySelector(".mainMenu");
+        if (mainMenu) setOffset(mainMenu.getBoundingClientRect().height);
+    }, 200);
     window.addEventListener("resize", () => debounceFunc());
 
     return (
@@ -54,6 +59,11 @@ const Layout = ({ children }) => {
 
 const Page = styled(motion.section)`
     background-color: ${({ theme }) => theme.color.offWhite};
+    display: grid;
+    height: auto;
+    align-content: stretch;
+    align-items: stretch;
+    min-height: 100vh;
 `;
 
 const Main = styled.main`

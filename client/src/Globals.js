@@ -59,9 +59,17 @@ export const GlobalStyles = createGlobalStyle`
 		--noeStandard: NoeStandardLight; 
 
 		--maxWidth: 2400px;
-		--gutter: 6rem;
-		--offsetTop: 6rem;
+		--gutter: 7rem;
+		--offsetTop: 8rem;
 		--borderRadius: 4px;
+	}
+
+	#root, #portal{
+		width: 100%;
+		height: 100%;
+		position: relative;
+		display: flex;
+		flex-direction: column;
 	}
 
 	body{ font-family: "NoeStandardLight"; color: ${({ theme }) => theme.color.darkGray}; }
@@ -121,7 +129,7 @@ export const GlobalStyles = createGlobalStyle`
 
 	img, svg{ width: 100%; max-width: 100%; height: auto; }
 	button, a{ cursor: pointer; }
-	button{ cursor: pointer; letter-spacing: 1px; font-size: var(--button); font-family: var(--scto); }
+	button{ cursor: pointer; font-size: var(--button); font-family: var(--scto); }
 
 	@media only screen and (max-width: 900px) {
 		:root {
@@ -131,7 +139,8 @@ export const GlobalStyles = createGlobalStyle`
 			--a: 0.875rem; // 14px
 			--li: 0.875rem; // 14px
 
-			--text-huge: 1.25rem; // 20px
+			/* --text-huge: 1.25rem; // 20px */
+			--text-huge: 1.5rem; // 20px
 			--text-medium: 1rem; // 16px
 
 			--button: 0.625rem; // 10px

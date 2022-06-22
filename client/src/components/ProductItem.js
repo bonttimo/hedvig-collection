@@ -7,7 +7,7 @@ import { getSizes, getColors } from "../functions/product";
 
 const ConditionalWrapper = ({ condition, wrapper, children }) => (condition ? wrapper(children) : children);
 
-const ProductItem = ({ style = "default", colors = [], sizes = {}, preorder = false, img = null, title = null, material = "", description = null, price = null, url = "", ...props }) => {
+const ProductItem = ({ style = "default", colors = [], sizes = {}, preorder = false, img = null, preview = null, title = null, material = "", description = null, price = null, url = "", ...props }) => {
     const _sizes = getSizes(sizes, true);
     const _colors = getColors(colors);
     return (
@@ -22,9 +22,9 @@ const ProductItem = ({ style = "default", colors = [], sizes = {}, preorder = fa
                 <Content>
                     <Image>
                         <div className="img">
-                            <img loading="lazy" src={img} alt="" />
+                            <img loading="lazy" src={img} alt={title} style={{ backgroundColor: _colors[0].value }} />
 
-                            <ProductData>
+                            <ProductData className="product-data">
                                 <header>
                                     {preorder === true || (preorder === "true" && <p className="preOrder">Preorder</p>)}
                                     {Object.values(sizes).every((size) => parseInt(size) <= 0) && <p className="soldOut">Sold out</p>}
@@ -45,7 +45,11 @@ const ProductItem = ({ style = "default", colors = [], sizes = {}, preorder = fa
                                             <div key={index} style={{ backgroundColor: value }}></div>
                                         ))}
                                     </div>
-                                    {material !== "" && <p className="material">Material: {material}</p>}
+                                    {material !== "" && (
+                                        <div className="material">
+                                            <p>Material: {material}</p>
+                                        </div>
+                                    )}
                                 </footer>
                             </ProductData>
                         </div>
@@ -78,7 +82,8 @@ const Container = styled(motion.section)`
     }
 
     .sizes,
-    .colors {
+    .colors,
+    .material {
         a,
         p {
             font-size: var(--text-smaller);
@@ -97,6 +102,21 @@ const Container = styled(motion.section)`
     @media only screen and (max-width: 900px) {
         h3.title {
             font-size: var(--text-huge);
+        }
+
+        .sizes,
+        .colors,
+        .material {
+            a,
+            p {
+                font-size: var(--text-tiny);
+            }
+        }
+
+        p.description,
+        p.price,
+        .material {
+            font-size: var(--text-tiny);
         }
     }
 `;
@@ -121,12 +141,31 @@ const Image = styled.section`
     width: 100%;
 
     .img {
-        padding-top: 177%;
+        /* padding-top: 177%; 19/16 */
+        padding-top: 140%;
         height: 0;
     }
     img {
         position: absolute;
         top: 0;
+    }
+
+    &:hover {
+        .product-data {
+            opacity: 1;
+        }
+    }
+
+    @media only screen and (max-width: 784px) {
+        .img {
+            display: flex;
+            flex-direction: column;
+            padding-top: 0;
+            height: auto;
+        }
+        img {
+            position: relative;
+        }
     }
 `;
 
@@ -141,6 +180,8 @@ const ProductData = styled.section`
     height: 100%;
     z-index: 10;
     color: ${({ theme }) => theme.color.darkGray};
+    transition: opacity 400ms ease;
+    opacity: 0;
 
     header {
         display: flex;
@@ -162,11 +203,13 @@ const ProductData = styled.section`
     footer {
         display: flex;
         align-items: center;
-        gap: 1rem;
+        flex-wrap: wrap;
+        gap: 0.1rem 1rem;
         padding: 1rem;
 
         .colors,
-        .sizes {
+        .sizes,
+        .material {
             display: flex;
             justify-content: center;
             align-items: baseline;
@@ -185,24 +228,17 @@ const ProductData = styled.section`
         }
     }
 
-    @media only screen and (max-width: 1400px) {
-        footer {
-            .sizes {
-                display: none;
-            }
-        }
-    }
-    @media only screen and (max-width: 1100px) {
-        footer {
-            .colors {
-                display: none;
-            }
-        }
-    }
     @media only screen and (max-width: 784px) {
+        position: relative;
+        align-items: center;
+        opacity: 1;
+        height: auto;
         footer {
+            gap: 0.1rem 0.5rem;
+            padding: 0.5rem;
             .sizes,
-            .colors {
+            .colors,
+            .material {
                 display: flex;
             }
         }
@@ -226,7 +262,9 @@ const Body = styled.section`
         justify-content: center;
         align-items: baseline;
         gap: 1rem;
-
+        .price {
+            flex-wrap: nowrap;
+        }
         span {
             background-color: ${({ theme }) => theme.color.gray};
             width: 1px;
@@ -241,11 +279,6 @@ const Body = styled.section`
         margin-top: 1rem;
         .group {
             gap: 0.4rem;
-
-            .description,
-            span {
-                display: none;
-            }
         }
     }
 
@@ -259,7 +292,7 @@ const Body = styled.section`
     }
 
     @media only screen and (max-width: 784px) {
-        margin-top: 1rem;
+        margin-top: 0.5rem;
 
         .group {
             .price,

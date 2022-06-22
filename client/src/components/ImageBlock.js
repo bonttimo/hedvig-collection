@@ -17,7 +17,7 @@ const ImageBlockItem = ({ image = null, title = null, body = null, style = "cent
                     </Link>
                 )}
                 {body && <p className="body">{body}</p>}
-                {button && <Button url={url} text={button} color={color} />}
+                {button && <Button url={url} text={button} color={color} internal={true} />}
             </div>
         </Item>
     );
@@ -55,6 +55,18 @@ const Container = styled(motion.section)`
     p.body {
         font-size: var(--text-huge);
     }
+    footer {
+        h6 {
+            font-size: var(--text-small);
+        }
+    }
+    @media only screen and (max-width: 900px) {
+        footer {
+            h6 {
+                font-size: var(--text-tiny);
+            }
+        }
+    }
 `;
 
 const Content = styled.section`
@@ -63,12 +75,15 @@ const Content = styled.section`
     grid-auto-rows: 1fr;
     align-content: center;
     width: 100%;
-    max-height: 90vh;
+    /* max-height: 90vh; */
+    /* max-height: 1282px; */
+    height: 100%;
     overflow: hidden;
 
     @media only screen and (max-width: 784px) {
-        display: flex;
-        flex-direction: column;
+        /* display: flex;
+        flex-direction: column; */
+        grid-template-columns: 1fr;
         max-height: unset;
         height: auto;
     }
@@ -79,8 +94,15 @@ const Footer = styled.footer`
     flex-direction: column;
     align-items: center;
     background-color: ${({ theme }) => theme.color.offWhite};
-    padding: 2rem;
+    padding: 3.1rem;
     text-transform: uppercase;
+
+    @media only screen and (max-width: 784px) {
+        padding: 0.7rem;
+        h6 {
+            display: none;
+        }
+    }
 `;
 
 const Item = styled(motion.section)`
@@ -89,14 +111,15 @@ const Item = styled(motion.section)`
     justify-content: center;
     align-items: center;
     text-align: center;
+    overflow: hidden;
     color: ${({ theme, color }) => theme.color[color]};
     background-color: ${({ theme, bg }) => theme.color[bg]};
-    height: 100%;
 
     &.has-content {
         .content {
             width: 100%;
             max-width: 500px;
+            padding: 2rem;
             .body {
                 margin-bottom: 2rem;
             }
@@ -123,9 +146,11 @@ const Item = styled(motion.section)`
     }
 
     img {
-        display: flex;
-        height: 100%;
+        /* display: flex; */
         object-fit: cover;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
     }
 
     .content {
@@ -149,6 +174,8 @@ const Item = styled(motion.section)`
         &.has-content {
             .content {
                 max-width: 100%;
+                min-height: 400px;
+                justify-content: center;
             }
         }
     }

@@ -11,11 +11,13 @@ import { coockieFade } from "../FramerMotion";
 const Coockes = () => {
     const [show, setShow] = useState(true);
 
-    const accept = () => {
+    const accept = (e) => {
+        e.preventDefault();
         setShow(false);
         localStorage.setItem("coockes", "accepted");
     };
-    const reject = () => {
+    const reject = (e) => {
+        e.preventDefault();
         setShow(false);
         localStorage.setItem("coockes", "rejected");
     };
@@ -56,7 +58,7 @@ const Container = styled(motion.section)`
     z-index: 100;
     bottom: 0;
     right: 0;
-    background-color: ${({ theme }) => theme.color.lightBlue};
+    background-color: ${({ theme }) => theme.color.blue};
     color: ${({ theme }) => theme.color.offWhite};
     max-width: 1200px;
 `;
@@ -68,8 +70,13 @@ const Content = styled.section`
     gap: 3rem;
     padding: 4rem 6rem;
 
+    p {
+        a {
+            text-decoration: underline;
+        }
+    }
     a {
-        text-decoration: underline;
+        color: ${({ theme }) => theme.color.offWhite};
     }
 
     svg {

@@ -31,3 +31,5 @@ export const arrayIsEqual = (a, b) => {
     }
     return true;
 };
+
+export const ConditionalWrapper = ({ condition, wrapper, children }) => (condition ? wrapper(children) : children);

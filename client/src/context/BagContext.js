@@ -1,11 +1,18 @@
 import { createContext, useReducer, useLayoutEffect } from "react";
 
+// https://help.shopify.com/en/manual/intro-to-shopify/pricing-plans/plan-features
+// https://www.launchtip.com/redirect-customers-to-page-after-payment-shopify/
+
 // https://shopify.github.io/js-buy-sdk/#removing-line-items
 import Client from "shopify-buy/index.unoptimized.umd";
+
+const GRAPHQL_URL = "hedvig-collection.myshopify.com";
+const STOREFRONT_ACCESS_TOKEN = "d9ee0ec8a4c50211b45c57b6042e215d";
+
 // import Client from "shopify-buy";
 window.client = Client.buildClient({
-    domain: "hedvig-collection.myshopify.com",
-    storefrontAccessToken: "dded2477ad5ce206ae4e3175641fabc1",
+    domain: GRAPHQL_URL,
+    storefrontAccessToken: STOREFRONT_ACCESS_TOKEN,
 });
 
 export const BagContext = createContext(null);

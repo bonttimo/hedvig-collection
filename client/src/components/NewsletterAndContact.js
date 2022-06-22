@@ -33,6 +33,7 @@ const Container = styled.section`
     p,
     a {
         font-size: var(--text-small);
+        font-family: var(--noeStandard);
     }
 `;
 
@@ -42,7 +43,7 @@ const Content = styled.section`
     grid-auto-rows: auto;
     width: 100%;
     max-width: var(--maxWidth);
-    padding: 6rem var(--gutter);
+    padding: 5.5rem var(--gutter);
 
     p,
     a,
@@ -59,7 +60,7 @@ const Content = styled.section`
 const Item = styled.section`
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: auto;
 
     .group {
         display: flex;

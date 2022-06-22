@@ -32,7 +32,7 @@ const MenuBar = ({ showCart, navHidden, mobileMenu, showMobileMenu }) => {
                         <button onClick={mobileMenu}>{showMobileMenu ? "Close" : "Menu"}</button>
                     </div>
                 </div>
-                <NavLink to="/">
+                <NavLink to="/" alt="Back to frontpage">
                     <Logo />
                 </NavLink>
                 <div className="right">
@@ -101,13 +101,9 @@ const Mobile = () => {
                     <h6>Follow us</h6>
                 </motion.div>
                 <motion.div variants={mobileMenuSlide}>
-                    <a href="https://www.google.com/">Instagram</a>
-                </motion.div>
-                <motion.div variants={mobileMenuSlide}>
-                    <a href="https://www.google.com/">Pinterest</a>
-                </motion.div>
-                <motion.div variants={mobileMenuSlide}>
-                    <a href="https://www.google.com/">Linkedin</a>
+                    <a href="https://www.instagram.com/hedvigcollection" target="_blank" rel="noreferrer">
+                        Instagram
+                    </a>
                 </motion.div>
             </div>
         </div>
@@ -151,7 +147,7 @@ const Navigation = () => {
                 <Mobile showMobileMenu={showMobileMenu} />
             </MobileMenu>
             <SmallLogo initial="visible" animate={navHidden ? "visible" : "hidden"} variants={logoFade}>
-                <NavLink to="/">
+                <NavLink to="/" alt="Back to frontpage">
                     <Logo />
                 </NavLink>
             </SmallLogo>
@@ -174,13 +170,13 @@ const SmallLogo = styled(motion.section)`
     padding: 1.5rem;
     svg {
         width: 100%;
-        max-width: 200px;
+        max-width: 220px;
         fill: ${({ theme }) => theme.color.black};
     }
 
     @media only screen and (max-width: 784px) {
         svg {
-            max-width: 150px;
+            max-width: 120px;
         }
     }
 `;
@@ -219,7 +215,7 @@ const Content = styled.section`
     grid-auto-rows: auto;
     align-items: center;
     max-width: var(--maxWidth);
-    padding: 1.5rem var(--gutter);
+    padding: 2rem var(--gutter);
     margin: 0 auto;
 
     .left,
@@ -227,9 +223,16 @@ const Content = styled.section`
         display: flex;
         align-items: center;
         align-items: baseline;
-        a,
+        a {
+            margin-right: 0.6rem;
+
+            &:nth-child(2) {
+                margin-right: 0;
+            }
+        }
+
         span {
-            margin-right: 1rem;
+            margin: 0 1.2rem;
         }
 
         a:last-of-type {
@@ -237,6 +240,7 @@ const Content = styled.section`
         }
         button {
             cursor: pointer;
+            padding: 0;
         }
     }
 
@@ -248,10 +252,6 @@ const Content = styled.section`
 
     .right {
         justify-self: end;
-
-        button {
-            margin-left: 1rem;
-        }
     }
 
     .cart {
@@ -265,14 +265,14 @@ const Content = styled.section`
     }
 
     svg {
-        max-width: 200px;
-        padding: 0 1rem;
+        max-width: 220px;
+        padding: 0 0.5rem;
     }
 
     @media only screen and (max-width: 784px) {
-        padding: 1rem;
+        padding: 1rem var(--gutter);
         svg {
-            max-width: 150px;
+            max-width: 120px;
         }
     }
 `;
@@ -307,17 +307,17 @@ const MobileMenu = styled(motion.nav)`
         grid-template-columns: 1fr;
         grid-auto-rows: auto;
         justify-items: center;
-        gap: 1rem;
+        gap: 2rem;
     }
     h6 {
         color: ${({ theme }) => theme.color.gray};
-        font-size: 0.75rem;
+        font-size: 1rem;
         font-family: var(--scto);
     }
 
     a,
     button {
-        font-size: var(--text-small);
+        font-size: var(--text-big);
         color: ${({ theme }) => theme.color.darkGray};
         font-family: var(--noeStandard);
     }
