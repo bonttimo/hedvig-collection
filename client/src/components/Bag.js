@@ -62,7 +62,7 @@ const Bag = ({ ...props }) => {
                         ) : (
                             <Empty>
                                 <p>Your bag is empty</p>
-                                <Button url="/shop" text="Shop now →" color="darkGreen" bg="offWhite" style="fill" internal={true} />
+                                <Button url="/shop" animate={false} text="Shop now →" color="darkGreen" bg="offWhite" style="fill" internal={true} />
                             </Empty>
                         )}
                     </Products>
@@ -76,7 +76,7 @@ const Bag = ({ ...props }) => {
                     </footer>
                 </main>
 
-                <Button url={checkout.webUrl} text="Checkout →" color="darkGray" bg="offWhite" style="fill" internal={false} />
+                <Button url={checkout.webUrl} animate={false} text="Checkout →" color="darkGray" bg="offWhite" style="fill" internal={false} />
             </Content>
         </Container>
     );

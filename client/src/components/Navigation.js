@@ -16,15 +16,15 @@ const MenuBar = ({ showCart, navHidden, mobileMenu, showMobileMenu }) => {
             <Content>
                 <div className="left">
                     <div className="desktop">
-                        <NavLink className={({ isActive }) => (isActive ? "active" : "")} to="/">
+                        <NavLink className={({ isActive }) => (isActive ? "active" : "") + " hoverUnderline"} to="/">
                             Home
                         </NavLink>
                         {/* <span>|</span> */}
-                        <NavLink className={({ isActive }) => (isActive ? "active" : "")} to="/shop">
+                        <NavLink className={({ isActive }) => (isActive ? "active" : "") + " hoverUnderline"} to="/shop">
                             Shop
                         </NavLink>
                         <span>|</span>
-                        <NavLink className={({ isActive }) => (isActive ? "active" : "")} to="/about">
+                        <NavLink className={({ isActive }) => (isActive ? "active" : "") + " hoverUnderline"} to="/about">
                             About
                         </NavLink>
                     </div>
@@ -37,7 +37,7 @@ const MenuBar = ({ showCart, navHidden, mobileMenu, showMobileMenu }) => {
                 </NavLink>
                 <div className="right">
                     <button className="cart" onClick={showCart}>
-                        Bag
+                        <p className="hoverUnderline">Bag</p>
                         <span className="cartAmount">{checkout.lineItems && checkout.lineItems.length > 0 ? checkout.lineItems.length : 0}</span>
                     </button>
                 </div>
@@ -51,17 +51,17 @@ const Mobile = () => {
         <div className="content">
             <div className="group">
                 <motion.div variants={mobileMenuSlide}>
-                    <NavLink className={({ isActive }) => (isActive ? "active" : "")} to="/">
+                    <NavLink className={({ isActive }) => (isActive ? "active" : "") + " hoverUnderline"} to="/">
                         Home
                     </NavLink>
                 </motion.div>
                 <motion.div variants={mobileMenuSlide}>
-                    <NavLink className={({ isActive }) => (isActive ? "active" : "")} to="/shop">
+                    <NavLink className={({ isActive }) => (isActive ? "active" : "") + " hoverUnderline"} to="/shop">
                         Shop
                     </NavLink>
                 </motion.div>
                 <motion.div variants={mobileMenuSlide}>
-                    <NavLink className={({ isActive }) => (isActive ? "active" : "")} to="/about">
+                    <NavLink className={({ isActive }) => (isActive ? "active" : "") + " hoverUnderline"} to="/about">
                         About
                     </NavLink>
                 </motion.div>
@@ -71,27 +71,27 @@ const Mobile = () => {
                     <h6>Returns & Privacy</h6>
                 </motion.div>
                 <motion.div variants={mobileMenuSlide}>
-                    <NavLink className={({ isActive }) => (isActive ? "active" : "")} to="/privacy-policy#shipping-privacy">
+                    <NavLink className={({ isActive }) => (isActive ? "active" : "") + " hoverUnderline"} to="/privacy-policy#shipping-privacy">
                         Refund Policy
                     </NavLink>
                 </motion.div>
                 <motion.div variants={mobileMenuSlide}>
-                    <NavLink className={({ isActive }) => (isActive ? "active" : "")} to="/privacy-policy#pre-order">
+                    <NavLink className={({ isActive }) => (isActive ? "active" : "") + " hoverUnderline"} to="/privacy-policy#pre-order">
                         Pre-Order
                     </NavLink>
                 </motion.div>
                 <motion.div variants={mobileMenuSlide}>
-                    <NavLink className={({ isActive }) => (isActive ? "active" : "")} to="/privacy-policy#privacy-policy">
+                    <NavLink className={({ isActive }) => (isActive ? "active" : "") + " hoverUnderline"} to="/privacy-policy#privacy-policy">
                         Privacy Policy
                     </NavLink>
                 </motion.div>
                 <motion.div variants={mobileMenuSlide}>
-                    <NavLink className={({ isActive }) => (isActive ? "active" : "")} to="/privacy-policy#terms-of-service">
+                    <NavLink className={({ isActive }) => (isActive ? "active" : "") + " hoverUnderline"} to="/privacy-policy#terms-of-service">
                         Terms of Service
                     </NavLink>
                 </motion.div>
                 <motion.div variants={mobileMenuSlide}>
-                    <NavLink className={({ isActive }) => (isActive ? "active" : "")} to="/privacy-policy#shipping-and-deliveries">
+                    <NavLink className={({ isActive }) => (isActive ? "active" : "") + " hoverUnderline"} to="/privacy-policy#shipping-and-deliveries">
                         Shipping & Deliveries
                     </NavLink>
                 </motion.div>
@@ -101,7 +101,7 @@ const Mobile = () => {
                     <h6>Follow us</h6>
                 </motion.div>
                 <motion.div variants={mobileMenuSlide}>
-                    <a href="https://www.instagram.com/hedvigcollection" target="_blank" rel="noreferrer">
+                    <a className="hoverUnderline" href="https://www.instagram.com/hedvigcollection" target="_blank" rel="noreferrer">
                         Instagram
                     </a>
                 </motion.div>
@@ -190,13 +190,18 @@ const Container = styled(motion.nav)`
     color: ${({ theme }) => theme.color.darkGray};
 
     a,
-    button {
+    button,
+    button p {
         font-size: var(--text-small);
         color: ${({ theme }) => theme.color.darkGray};
     }
 
     .mobile {
         display: none;
+    }
+
+    .hoverUnderline:after {
+        background-color: ${({ theme }) => theme.color.darkGray};
     }
 
     @media only screen and (max-width: 784px) {
@@ -310,9 +315,11 @@ const MobileMenu = styled(motion.nav)`
         gap: 2rem;
     }
     h6 {
+        text-transform: uppercase;
         color: ${({ theme }) => theme.color.gray};
         font-size: 1rem;
         font-family: var(--scto);
+        font-size: var(--text-smaller);
     }
 
     a,

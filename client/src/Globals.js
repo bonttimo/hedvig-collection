@@ -53,7 +53,8 @@ export const GlobalStyles = createGlobalStyle`
 		--p: 1.125rem; // 18px
 		--a: 1.125rem; // 18px
 		--li: 1.125rem; // 18px
-		--button: 0.875rem; // 14px
+		/* --button: 0.875rem; // 14px */
+		--button: 1rem; // 16px
 
 		--scto: SctoGroteskARegular; 
 		--noeStandard: NoeStandardLight; 
@@ -82,7 +83,7 @@ export const GlobalStyles = createGlobalStyle`
     h3, .h3 { font-size: var(--h3); font-family: var(--noeStandard);  }
     h4, .h4 { font-size: var(--h4); font-family: var(--noeStandard);  }
     h5, .h5 { font-size: var(--h5); font-family: var(--noeStandard);  }
-    h6, .h6 { font-size: var(--h6); font-family: var(--scto);  }
+    h6, .h6 { font-size: var(--h6); font-family: var(--scto); text-transform: uppercase; }
 	p{ font-size: var(--p); line-height: 155%; }
 	a{ font-size: var(--a); font-family: var(--scto); color: ${({ theme }) => theme.color.darkGray}; }
 	li{ font-size: var(--li); }
@@ -127,6 +128,29 @@ export const GlobalStyles = createGlobalStyle`
 		}
 	}
 
+	.hoverUnderline {
+		display: inline-block;
+		position: relative;
+	}
+
+	.hoverUnderline:after {
+		content: '';
+		position: absolute;
+		width: 100%;
+		transform: scaleX(0);
+		height: 1px;
+		bottom: 0;
+		left: 0;
+		background-color: ${({ theme }) => theme.color.darkGray};
+		transform-origin: bottom right;
+		transition: transform 400ms ease-out;
+	}
+
+	.hoverUnderline:hover:after {
+		transform: scaleX(1);
+		transform-origin: bottom left;
+	}
+
 	img, svg{ width: 100%; max-width: 100%; height: auto; }
 	button, a{ cursor: pointer; }
 	button{ cursor: pointer; font-size: var(--button); font-family: var(--scto); }
@@ -143,7 +167,7 @@ export const GlobalStyles = createGlobalStyle`
 			--text-huge: 1.5rem; // 20px
 			--text-medium: 1rem; // 16px
 
-			--button: 0.625rem; // 10px
+			--button: 0.9rem; // 14.4px
 
 			--gutter: 2rem;
 			--offsetTop: 2rem;

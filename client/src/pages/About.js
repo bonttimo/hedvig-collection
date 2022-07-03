@@ -105,7 +105,7 @@ const Container = styled(motion.section)`
 
         .intro {
             p {
-                font-size: var(--text-huge);
+                font-size: var(--text-big);
             }
         }
     }

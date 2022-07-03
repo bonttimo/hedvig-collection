@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.edab12bc.css",
-    "main.js": "/static/js/main.ca058cff.js",
+    "main.js": "/static/js/main.90eaf836.js",
     "static/media/hedvig-intro-video.mp4": "/static/media/hedvig-intro-video.678b57e5de4909927480.mp4",
     "static/media/Hedvig-2021_10-1.jpg": "/static/media/Hedvig-2021_10-1.dc440d86820e7f837ec8.jpg",
     "static/media/4A6A1036-1.jpg": "/static/media/4A6A1036-1.20efaf38a13274bcf65a.jpg",
@@ -19,10 +19,10 @@
     "static/media/SctoGroteskA-Regular.woff2": "/static/media/SctoGroteskA-Regular.0f8e0816dfb05060629c.woff2",
     "index.html": "/index.html",
     "main.edab12bc.css.map": "/static/css/main.edab12bc.css.map",
-    "main.ca058cff.js.map": "/static/js/main.ca058cff.js.map"
+    "main.90eaf836.js.map": "/static/js/main.90eaf836.js.map"
   },
   "entrypoints": [
     "static/css/main.edab12bc.css",
-    "static/js/main.ca058cff.js"
+    "static/js/main.90eaf836.js"
   ]
 }

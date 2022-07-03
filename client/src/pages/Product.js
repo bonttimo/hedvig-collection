@@ -168,7 +168,7 @@ const Product = () => {
                                 }}>
                                 {product.images.map((image, index) => (
                                     <SwiperSlide key={index}>
-                                        <img src={image.url} alt={image.altText} />
+                                        <img src={image.url} alt={image.altText} height={image.height} width={image.width} />
                                     </SwiperSlide>
                                 ))}
                             </Swiper>
@@ -215,7 +215,7 @@ const Product = () => {
                                 </Colors>
                             </Group>
                             <Group className="buy">
-                                <Button url="#" text="Add to bag →" disabled={selectedProduct === null ? true : false} color="white" bg="blue" style="fill" onClick={addItem} internal={false} />
+                                <Button url="#" text="Add to bag →" animate={false} disabled={selectedProduct === null ? true : false} color="white" bg="blue" style="fill" onClick={addItem} internal={false} />
                                 {/* <Button url="#" text="Preorder" color="gray" bg="gray" style="outline" /> */}
                             </Group>
                             <Group className="productInfo">
@@ -355,8 +355,8 @@ const Gallery = styled(motion.section)`
     overflow: hidden;
     cursor: grab;
     max-width: 50vw;
-    width: 50vw;
     width: 100%;
+    min-width: 50vw;
     &:active {
         cursor: grabbing;
     }
@@ -595,13 +595,18 @@ const RelatedProducts = styled(motion.section)`
     }
     .products {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, max-content);
+        justify-items: center;
+        align-items: center;
+        justify-content: center;
         grid-template-rows: auto;
         gap: 6.5rem;
+        width: 100%;
 
         img {
-            max-width: 300px;
+            width: 100%;
             height: 100%;
+            max-width: 300px;
             object-fit: cover;
         }
         .product {

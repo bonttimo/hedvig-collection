@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-const Button = ({ url, text, color = "offWhite", bg = "transparent", style = "default", onClick = null, disabled = false, internal = true }) => {
+const Button = ({ url, text, color = "offWhite", bg = "transparent", style = "default", onClick = null, disabled = false, internal = true, animate = true }) => {
     return (
-        <Container onClick={onClick} disabled={disabled} className={`button style-${style}`} color={color} bg={bg}>
+        <Container onClick={onClick} disabled={disabled} className={`button style-${style} ${animate ? "animate" : ""}`} color={color} bg={bg}>
             <span></span>
             {internal ? <Link to={url}>{text}</Link> : <a href={url}>{text}</a>}
         </Container>
@@ -29,6 +29,16 @@ const Container = styled.button`
         height: 9px;
         background-color: ${({ theme, color }) => theme.color[color]};
         border-radius: 100px;
+    }
+
+    a {
+        transition: all 500ms ease-in-out;
+    }
+
+    &.animate:hover {
+        a {
+            transform: translateX(15px);
+        }
     }
 
     &.style- {

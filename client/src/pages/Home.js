@@ -73,26 +73,26 @@ const Home = () => {
 
             <ImageBlock color="offWhite" footer="DAIQUIRI silk & silk chiffon dress black">
                 <ImageBlockItem image={image1} />
-                <ImageBlockItem image={image2} title="Silk & Silk Chiffon Dress Black" button="See more" url="/product/daiquiri-silk-silk-chiffon-dress-black" color="offWhite" />
+                <ImageBlockItem image={image2} title="Silk & Silk Chiffon Dress Black" button="See more" url="/product/daiquiri" color="offWhite" />
             </ImageBlock>
 
             <ImageBlock color="offWhite" footer="Hedvig Knit merino wool sweater aniline">
-                <ImageBlockItem image={image3} title="Hedvig Knit — Merino Wool Sweater Aniline" button="See more" url="/product/hedvig-knit-merino-wool-sweater-aniline" />
+                <ImageBlockItem image={image3} title="Hedvig Knit — Merino Wool Sweater Aniline" button="See more" url="/product/hedvig-knit" />
             </ImageBlock>
 
             <ImageBlock color="offWhite" footer="MACARON silk dress electric blue ">
-                <ImageBlockItem image={image4} title="Macaron — Silk Dress Electric Blue" button="See more" url="/product/macaron-silk-dress-electric-blue" />
+                <ImageBlockItem image={image4} title="Macaron — Silk Dress Electric Blue" button="See more" url="/product/macaron" />
                 <ImageBlockItem title="" body="Helsinki-based womenswear brand that values the beauty of enjoyment with a responsible approach to all we do." button="See more" url="/about" bg="darkPurple" style="left" />
             </ImageBlock>
 
             <ImageBlock color="offWhite" footer="MACARON silk dress plum">
-                <ImageBlockItem image={image5} title="Macaron — Silk Dress Plum" button="See more" url="/product/macaron-silk-dress-plum" color="offWhite" />
+                <ImageBlockItem image={image5} title="Macaron — Silk Dress Plum" button="See more" url="/product/macaron" color="offWhite" />
                 <ImageBlockItem image={image6} />
             </ImageBlock>
 
             <ImageBlock color="offWhite" footer="Sui Lieviti Dress Light Beige">
                 <ImageBlockItem image={image8} />
-                <ImageBlockItem image={image7} title="Sui Lieviti — Dress Light Beige" button="See more" url="/product/sui-lieviti-dress-light-beige" color="offWhite" />
+                <ImageBlockItem image={image7} title="Sui Lieviti — Dress Light Beige" button="See more" url="/product/sui-lieviti" color="offWhite" />
             </ImageBlock>
 
             <ImageBlock color="offWhite">
@@ -130,11 +130,6 @@ const Container = styled(motion.section)`
     }
 
     @media only screen and (max-width: 900px) {
-        .intro {
-            button a {
-                font-size: var(--text-tiny);
-            }
-        }
         .controls {
             p,
             span {
@@ -148,7 +143,7 @@ const Header = styled.header`
     display: flex;
     width: 100%;
     height: 100%;
-    max-height: 55vh;
+    max-height: 100vh;
     min-height: 850px;
     position: relative;
 

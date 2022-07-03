@@ -75,14 +75,10 @@ const Content = styled.section`
     grid-auto-rows: 1fr;
     align-content: center;
     width: 100%;
-    /* max-height: 90vh; */
-    /* max-height: 1282px; */
-    height: 100%;
+    height: auto;
     overflow: hidden;
 
     @media only screen and (max-width: 784px) {
-        /* display: flex;
-        flex-direction: column; */
         grid-template-columns: 1fr;
         max-height: unset;
         height: auto;
@@ -146,10 +142,11 @@ const Item = styled(motion.section)`
     }
 
     img {
-        /* display: flex; */
+        object-position: top;
         object-fit: cover;
-        height: 100%;
+        height: 120vh;
         width: 100%;
+        min-height: 800px;
         overflow: hidden;
     }
 
@@ -161,6 +158,9 @@ const Item = styled(motion.section)`
     }
 
     @media only screen and (max-width: 784px) {
+        img {
+            height: 700px;
+        }
         .content {
             display: flex;
             flex-direction: column;

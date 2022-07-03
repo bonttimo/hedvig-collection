@@ -381,7 +381,7 @@ const Container = styled(motion.section)`
 
     aside {
         button {
-            font-size: var(--text-huge);
+            font-size: var(--text-medium);
             font-family: var(--noeStandard);
         }
     }
@@ -430,7 +430,7 @@ const Aside = styled.aside`
     align-content: flex-start;
     align-items: flex-start;
     position: sticky;
-    top: 105px;
+    top: 125px;
     width: 100%;
 
     * {
@@ -440,7 +440,7 @@ const Aside = styled.aside`
         }
     }
     h6 {
-        margin-bottom: 1.5rem;
+        margin-bottom: 1rem;
     }
     button {
         width: auto;

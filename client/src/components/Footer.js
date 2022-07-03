@@ -16,19 +16,29 @@ const Footer = () => {
                         {/* <h6>Returns & Privacy</h6> */}
                         <ul>
                             <li>
-                                <Link to="/privacy-policy#shipping-privacy">Refund Policy</Link>
+                                <Link className="hoverUnderline" to="/privacy-policy#shipping-privacy">
+                                    Refund Policy
+                                </Link>
                             </li>
                             <li>
-                                <Link to="/privacy-policy#pre-order">Pre-Order</Link>
+                                <Link className="hoverUnderline" to="/privacy-policy#pre-order">
+                                    Pre-Order
+                                </Link>
                             </li>
                             <li>
-                                <Link to="/privacy-policy#privacy-policy">Privacy Policy</Link>
+                                <Link className="hoverUnderline" to="/privacy-policy#privacy-policy">
+                                    Privacy Policy
+                                </Link>
                             </li>
                             <li>
-                                <Link to="/privacy-policy#terms-of-service">Terms of Service</Link>
+                                <Link className="hoverUnderline" to="/privacy-policy#terms-of-service">
+                                    Terms of Service
+                                </Link>
                             </li>
                             <li>
-                                <Link to="/privacy-policy#shipping-and-deliveries">Shipping & Deliveries</Link>
+                                <Link className="hoverUnderline" to="/privacy-policy#shipping-and-deliveries">
+                                    Shipping & Deliveries
+                                </Link>
                             </li>
                         </ul>
                     </Item>
@@ -36,7 +46,7 @@ const Footer = () => {
                         <h6>Follow us</h6>
                         <ul>
                             <li>
-                                <a href="https://www.instagram.com/hedvigcollection" target="_blank" rel="noreferrer">
+                                <a className="hoverUnderline" href="https://www.instagram.com/hedvigcollection" target="_blank" rel="noreferrer">
                                     Instagram
                                 </a>
                             </li>
@@ -46,10 +56,14 @@ const Footer = () => {
                         <h6>Site</h6>
                         <ul>
                             <li>
-                                <Link to="/shop">Shop</Link>
+                                <Link className="hoverUnderline" to="/shop">
+                                    Shop
+                                </Link>
                             </li>
                             <li>
-                                <Link to="/about">About</Link>
+                                <Link className="hoverUnderline" to="/about">
+                                    About
+                                </Link>
                             </li>
                         </ul>
                     </Item>
@@ -70,8 +84,12 @@ const Container = styled.footer`
     color: ${({ theme }) => theme.color.offWhite};
     width: 100%;
     height: auto;
-    min-height: 200px;
+    /* min-height: 200px; */
     padding: 5rem 0 0 0;
+
+    .hoverUnderline:after {
+        background-color: ${({ theme }) => theme.color.white};
+    }
 
     .copyright {
         text-align: center;
